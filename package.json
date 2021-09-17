@@ -1,0 +1,22 @@
+{
+  "name": "recipe",
+  "version": "1.0.0",
+  "description": "Info to come :)",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wonderpuss-photogenicus/Recipe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wonderpuss-photogenicus/Recipe/issues"
+  },
+  "homepage": "https://github.com/wonderpuss-photogenicus/Recipe#readme",
+  "dependencies": {
+    "react": "^17.0.2"
+  }
+}
