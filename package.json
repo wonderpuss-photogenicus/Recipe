@@ -17,6 +17,22 @@
   },
   "homepage": "https://github.com/wonderpuss-photogenicus/Recipe#readme",
   "dependencies": {
-    "react": "^17.0.2"
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "axios": "^0.21.4",
+    "babel": "^6.23.0",
+    "concurrently": "^6.2.1",
+    "crossenv": "^0.0.2-security",
+    "css-loader": "^6.2.0",
+    "eslint": "^7.32.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.2",
+    "node-fetch": "^3.0.0",
+    "nodemon": "^2.0.12",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-grid": "^4.0.4",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1"
   }
 }
