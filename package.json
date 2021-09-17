@@ -4,7 +4,9 @@
   "description": "Info to come :)",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"webpack serve --hot --open\" \"nodemon server/server.js\"",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
     "@babel/preset-react": "^7.14.5",
     "axios": "^0.21.4",
     "babel": "^6.23.0",
+    "babel-loader": "^8.2.2",
     "concurrently": "^6.2.1",
     "crossenv": "^0.0.2-security",
     "css-loader": "^6.2.0",
@@ -33,6 +36,10 @@
     "react-dom": "^17.0.2",
     "react-grid": "^4.0.4",
     "sass-loader": "^12.1.0",
-    "style-loader": "^3.2.1"
+    "style-loader": "^3.2.1",
+    "webpack-dev-server": "^4.2.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.8.0"
   }
 }
