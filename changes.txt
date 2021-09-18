@@ -1,3 +1,7 @@
 Aside Component
     updated aside from div to aside tag
     added pantryItems and cartItems dummy data
+
+Resolved Merge Conflicts
+Added Nav Bar Component with stretch features
+Updated component names to Proper Casing

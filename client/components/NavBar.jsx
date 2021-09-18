@@ -3,13 +3,19 @@ import React from 'react';
 const NavBar = () => {
 
     return (
-        <nav className='listContainer'>
-            <ol className='pantryList'>
-                {pantryItems.map((item, idx) => orderedListBuilder(item, idx))}
-            </ol>
-            <ol className='cartList'>
-                {cartItems.map((item, idx) => orderedListBuilder(item, idx))}
-            </ol>
+        <nav className='navBar'>
+            <ul className='addMeal'>
+                <button>Add Meal + </button>
+            </ul>
+            <ul className='favMeal'>
+                <button>Fav Meals</button>
+            </ul>
+            <ul className='recentMeal'>
+                <button>Recent Meals</button>
+            </ul>
+            <ul className='weeklyPlanner'>
+                <button>Weekly Planner</button>
+            </ul>
         </nav>
     );
 };
