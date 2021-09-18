@@ -1,13 +1,66 @@
 import React from 'react';
-
-function MealCard() {
+import Popup from 'reactjs-popup';
+function MealCard(props) {
+  const ref = React.createRef();
   const starArr = [];
+  const [isOpen, setIsOpen] = React.useState(true);
   const [addedToCart, setAddedToCart] = React.useState(false);
   const [side, setSide] = React.useState('ingredients');
   const [isFaved, setIsFaved] = React.useState(false);
   const [rating, setRating] = React.useState(-4);
   const ratingArr = [];
-
+  const dummyList = [
+    'onions',
+    'bread',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+    'ramen',
+  ];
+  const dummyDirections = [
+    'Make some food',
+    'I love writing fake recipes',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+    'Call me Paula Deen',
+  ];
+  const dummyListListed = [];
+  const dummyDirectionsListed = [];
+  dummyList.forEach((el) => {
+    dummyListListed.push(<li>{el}</li>);
+  });
+  dummyDirections.forEach((el) => {
+    dummyDirectionsListed.push(<li>{el}</li>);
+  });
+  const dummyListModal = [];
+  dummyList.forEach((el) => {
+    dummyListModal.push(
+      <>
+        <label for={el}>
+          <input type='checkbox' id={el} name={el} value={el} defaultChecked />
+          {el}
+        </label>
+      </>
+    );
+  });
+  const closeButton = (
+    <button className='closeButton' onClick={props.unmount}>
+      X
+    </button>
+  );
   for (let i = 0; i < 5; i++) {
     if (i < Math.abs(rating)) {
       ratingArr.push(true);
@@ -18,18 +71,51 @@ function MealCard() {
   let missIngredientButton;
   if (addedToCart) {
     missIngredientButton = (
-      <button className='addToCartButtonTrue'>
-        Add Missing Ingredients to Shopping List
-      </button>
+      <Popup
+        trigger={
+          <button className='button addToCardButtonTrue'>
+            Add Missing Ingredients to Shopping List
+          </button>
+        }
+        modal
+      >
+        <div className='modalPopupWindow'>
+          <form class='missIngredientForm'>{dummyListModal}</form>
+        </div>
+      </Popup>
     );
+    // addToCartButtonFalse
   } else {
     missIngredientButton = (
-      <button
-        onClick={() => setAddedToCart(true)}
-        className='addToCartButtonFalse'
+      <Popup
+        trigger={
+          <button className='button addToCartButtonFalse'>
+            Add Missing Ingredients to Shopping List
+          </button>
+        }
+        modal
+        nested
       >
-        Add Missing Ingredients to Shopping List
-      </button>
+        {(close) => (
+          <div className='modalPopupWindow'>
+            <button className='close' onClick={close}>
+              &times;
+            </button>
+            {dummyListModal}{' '}
+            <div className='actions'>
+              <button
+                className='button'
+                onClick={() => {
+                  console.log('modal closed ');
+                  close();
+                }}
+              >
+                Add to Shopping List
+              </button>
+            </div>
+          </div>
+        )}
+      </Popup>
     );
   }
   for (let i = 1; i < 6; i++) {
@@ -47,14 +133,9 @@ function MealCard() {
   }
   let list;
   let buttonArr = [];
+
   if (side === 'ingredients') {
-    list = (
-      <ul>
-        <li>onions</li>
-        <li>bread</li>
-        <li>ramen</li>
-      </ul>
-    );
+    list = <ul>{dummyListListed}</ul>;
     buttonArr.push(
       <div>
         <button
@@ -72,13 +153,7 @@ function MealCard() {
       </div>
     );
   } else if (side === 'directions') {
-    list = (
-      <ol>
-        <li>Make some food</li>
-        <li>I love writing fake recipes</li>
-        <li>Call me Ina Garten</li>
-      </ol>
-    );
+    list = <ol>{dummyDirectionsListed}</ol>;
     buttonArr.push(
       <div>
         <button
@@ -116,17 +191,32 @@ function MealCard() {
       </button>
     );
   }
-  return (
-    <div className='mealCard'>
-      {favButton}
-      {buttonArr}
-      <div className='mealCardContainer'>
-        {list}
-        {missIngredientButton}
-        <div class='starArr'>{starArr}</div>
+  if (isOpen)
+    return (
+      <div>
+        <div className='favAndCloseHolder'>
+          {favButton}
+          {closeButton}
+        </div>
+        <div className='imgHolder'>
+          <img src='https://i.imgur.com/mSVtgYm.jpg' />
+        </div>
+
+        <div className='buttonHolder'>{buttonArr}</div>
+        <div className='mealCardContainer'>
+          <div class='mealCardList'>{list}</div>
+
+          <div className='missIngredientHolder'>{missIngredientButton}</div>
+          <div className='mealCardLink'>
+            <a href='#'>Original Recipe</a>
+          </div>
+          <div className='starArr'>{starArr}</div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  else {
+    return;
+  }
 }
 
 export default MealCard;
