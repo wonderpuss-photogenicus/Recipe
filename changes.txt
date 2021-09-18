@@ -1,0 +1,3 @@
+Aside Component
+    updated aside from div to aside tag
+    added pantryItems and cartItems dummy data
