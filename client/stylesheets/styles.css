@@ -1,0 +1,42 @@
+.mealCard {
+  width: 10rem;
+  height: 100%;
+  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.starArr input {
+  width: 12px;
+  height: 12px;
+}
+
+.falseFavoriteButton {
+  background-color: green;
+  width: 30px;
+}
+.trueFavoriteButton {
+  background-color: yellow;
+  width: 30px;
+}
+.starArr {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.isActive {
+  background-color: green;
+}
+.ratingStar1true,
+.ratingStar2true,
+.ratingStar3true,
+.ratingStar4true,
+.ratingStar5true {
+  background-color: yellow;
+}
+.addToCartButtonFalse {
+  background-color: red;
+}
+.addToCartButtonTrue {
+  background-color: green;
+}
