@@ -1,12 +1,13 @@
 import React from 'react';
+import Aside from './Aside.jsx'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return <div>Hello There :&#41; &lt; &gt;</div>;
-  }
-}
+const App = () => {
+    return (
+        <div>
+            <p>Hello There :&#41; &lt; &gt;</p>
+            <Aside />
+        </div>
+    );
+};
 
 export default App;
