@@ -1,0 +1,20 @@
+// Gets all users in db
+GET http://localhost:3000/users
+
+###
+// Gets specific users in db
+GET http://localhost:3000/users/614636da7f243026c922c4d8
+
+###
+// Adds users to db
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "username": "mike",
+  "password": "bigBrain"
+}
+
+###
+// Deletes specific users from db
+DELETE http://localhost:3000/users/6146374d6c90cf283f2bccd6
