@@ -116,3 +116,8 @@
   border-radius: 18px;
   border: 1px solid #cfcece;
 }
+#mealDisplay {
+  width: 90vw;
+  border: solid 1px black;
+  display: flex;
+}

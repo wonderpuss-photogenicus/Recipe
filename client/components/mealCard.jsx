@@ -39,14 +39,14 @@ function MealCard(props) {
   ];
   const dummyListListed = [];
   const dummyDirectionsListed = [];
-  dummyList.forEach((el) => {
+  props.ingredients.forEach((el) => {
     dummyListListed.push(<li>{el}</li>);
   });
-  dummyDirections.forEach((el) => {
+  props.directions.forEach((el) => {
     dummyDirectionsListed.push(<li>{el}</li>);
   });
   const dummyListModal = [];
-  dummyList.forEach((el) => {
+  props.ingredients.forEach((el) => {
     dummyListModal.push(
       <>
         <label for={el}>
@@ -196,6 +196,7 @@ function MealCard(props) {
       <div>
         <div className='favAndCloseHolder'>
           {favButton}
+          {props.name}
           {closeButton}
         </div>
         <div className='imgHolder'>
