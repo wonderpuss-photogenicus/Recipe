@@ -21,9 +21,9 @@ const App = () => {
   ]);
   const [rendererArray, setRendererArray] = React.useState([true, true, true]);
   const [layout, setLayout] = React.useState([
-    { i: '0', x: 0, y: 0, w: 4, h: 11 },
-    { i: '1', x: 4, y: 0, w: 4, h: 11 },
-    { i: '2', x: 8, y: 0, w: 4, h: 11 },
+    { i: '0', x: 0, y: 0, w: 4, h: 12 },
+    { i: '1', x: 4, y: 0, w: 4, h: 12 },
+    { i: '2', x: 8, y: 0, w: 4, h: 12 },
   ]);
   const [favMeals, setFavMeals] = React.useState([
     {
@@ -100,27 +100,32 @@ const App = () => {
   ]);
   function loginUser(event) {
     axios({
-      method: 'post',
-      url: '/user/login',
-      body: {
-        username: console.log(event.target.parentNode.children[0].value),
-        username: console.log(event.target.parentNode.children[1].value),
+      method: 'POST',
+      url: '/users/login',
+      data: {
+        username: event.target.parentNode.children[2].value,
+        password: event.target.parentNode.children[3].value,
       },
+    }).then((response) => {
+      if (response.data === 'Send to their page') {
+        setIsLoggedIn(true);
+      }
     });
-    console.log(event.target.parentNode.children[0].value); //username
-    console.log(event.target.parentNode.children[1].value); //password
+    console.log(event.target.parentNode.children[2].value); //username
+    console.log(event.target.parentNode.children[3].value); //password
   }
   function createUser(event) {
     axios({
-      method: 'post',
-      url: '/user/create',
-      body: {
-        username: console.log(event.target.parentNode.children[0].value),
-        username: console.log(event.target.parentNode.children[1].value),
+      method: 'POST',
+      url: '/users/create',
+      headers: { 'Content-Type': 'application/json' },
+      data: {
+        username: event.target.parentNode.children[2].value,
+        password: event.target.parentNode.children[3].value,
       },
     });
-    console.log(event.target.parentNode.children[0].value); //username
-    console.log(event.target.parentNode.children[1].value); //password
+    console.log(event.target.parentNode.children[2].value); //username
+    console.log(event.target.parentNode.children[3].value); //password
   }
   function setFav(event) {
     const name = event.target.parentNode.textContent.slice(
@@ -229,10 +234,10 @@ const App = () => {
           <GridLayout
             className='layout'
             layout={[
-              { i: 'a', x: 0, y: 0, w: 20, h: 20 },
-              { i: 'b', x: 0, y: 20, w: 20, h: 20 },
-              { i: 'c', x: 0, y: 40, w: 20, h: 20 },
-              { i: 'd', x: 0, y: 60, w: 20, h: 20 },
+              { i: 'a', x: 0, y: 0, w: 20, h: 13 },
+              { i: 'b', x: 0, y: 13, w: 20, h: 13 },
+              { i: 'c', x: 0, y: 26, w: 20, h: 13 },
+              { i: 'd', x: 0, y: 39, w: 20, h: 13 },
             ]}
             cols={20}
             rowHeight={30}
@@ -251,7 +256,7 @@ const App = () => {
               </div>
             )}
             {masterRendererArray[1] && (
-              <div key='b'>
+              <div key='b' id='favDisplay'>
                 <FavsDisplay
                   setFav={setFav}
                   removeFav={removeFav}

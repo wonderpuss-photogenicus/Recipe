@@ -18,10 +18,12 @@ router.get('/:id',
 )
 
 // Creating user
-router.post('/', 
-  databaseController.createUser,
-  (req, res) => res.status(200).json(res.newUser)
-)
+
+router.post('/create', databaseController.createUser, (req, res) =>
+  res.status(200).json(res.newUser)
+);
+
+
 
 // Deleting one user
 router.delete('/:id', 
@@ -31,11 +33,11 @@ router.delete('/:id',
   )
 
 // AUTHENTICATE USER * STRETCH * NOT 100% WORKING
-// router.post('/users/login', 
 
-//   databaseController.authenticateUser,
-//   (req, res) => res.status(200).json(message)
-// )
+router.post('/login', databaseController.authenticateUser, (req, res) =>
+  res.status(200).json(message)
+);
+
 
 // Get user middleware
 async function findUserById(req, res, next) {

@@ -25,8 +25,8 @@ const FavsDisplay = (props) => {
     );
   });
   return (
-    <div id='favDisplay'>
-      Favs Display
+    <div>
+      <h3>My Favorite Meals</h3>
       <GridLayout
         className='layout'
         layout={props.layout}
