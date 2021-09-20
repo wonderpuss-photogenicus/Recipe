@@ -1,3 +1,4 @@
+
 const express = require('express')
 const router = express.Router()
 const User = require('../models/userModel')
@@ -31,12 +32,14 @@ router.delete('/:id',
 
 // AUTHENTICATE USER * STRETCH * NOT 100% WORKING
 // router.post('/users/login', 
+
 //   databaseController.authenticateUser,
 //   (req, res) => res.status(200).json(message)
 // )
 
 // Get user middleware
 async function findUserById(req, res, next) {
+
   let user
   try {
     user = await User.findById(req.params.id)
@@ -51,3 +54,4 @@ async function findUserById(req, res, next) {
 }
 
 module.exports = router
+
