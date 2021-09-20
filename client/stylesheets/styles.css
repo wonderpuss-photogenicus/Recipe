@@ -6,7 +6,12 @@
   flex-direction: column;
   overflow-y: scroll;
 }
+
 #app {
+  display: flex;
+  flex-direction: column;
+}
+#asideAndDisplayHolder {
   display: flex;
 }
 #aside {
@@ -114,7 +119,12 @@
   display: flex;
   flex-direction: column;
 }
-
+.navBar {
+  width: 95%;
+  display: flex;
+  border: solid 1px black;
+  align-self: center;
+}
 .modalPopupWindow > .close {
   cursor: pointer;
   position: absolute;
@@ -129,6 +139,12 @@
   border: 1px solid #cfcece;
 }
 #mealDisplay {
+  width: 80vw;
+  overflow-y: scroll;
+  border: solid 1px black;
+  display: flex;
+}
+#favDisplay {
   width: 80vw;
   overflow-y: scroll;
   border: solid 1px black;

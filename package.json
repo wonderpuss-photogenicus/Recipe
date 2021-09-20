@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"webpack serve --hot --open\" \"nodemon server/server.js\"",
+    "start": "concurrently \"webpack serve --hot\" \"nodemon server/server.js\"",
     "build": "webpack"
   },
   "repository": {

@@ -2,17 +2,44 @@ import React from 'react';
 // import MealCard from './mealCard.jsx';
 // import GridLayout from 'react-grid-layout';
 // import ReactDom from 'react-dom';
+import NavBar from './NavBar.jsx';
 import Aside from './Aside.jsx';
 import MealDisplay from './MealDisplay.jsx';
 import GridLayout from 'react-grid-layout';
 import MealCard from './MealCard.jsx';
 import Filter from './Filter.jsx';
+import FavsDisplay from './FavsDisplay.jsx';
 const App = () => {
-  const [rendererArray, setRendererArray] = React.useState([true, true]);
+  const [masterRendererArray, setMasterRendererArray] = React.useState([
+    true,
+    true,
+    false,
+    false,
+  ]);
+  const [rendererArray, setRendererArray] = React.useState([true, true, true]);
   const [layout, setLayout] = React.useState([
     { i: '0', x: 0, y: 0, w: 4, h: 11 },
     { i: '1', x: 4, y: 0, w: 4, h: 11 },
+    { i: '2', x: 8, y: 0, w: 4, h: 11 },
   ]);
+  const [favMeals, setFavMeals] = React.useState([
+    {
+      name: 'Krabby Patty',
+      ingredients: [
+        'buns',
+        'pickles',
+        'patty',
+        'ketchup',
+        'mustard',
+        'tomato',
+        'lettuce',
+        'and most importantly love :)',
+      ],
+      directions: ['Do this', 'and this'],
+    },
+  ]);
+  const [pantryItems, setPantryItems] = React.useState(['veg', 'grains']);
+  const [cartItems, setCartItems] = React.useState(['fruit', 'sauce']);
 
   const dummyList = [
     'onions',
@@ -53,13 +80,58 @@ const App = () => {
       ingredients: dummyList,
       directions: dummyDirections,
     },
+    {
+      name: 'Krabby Patty',
+      ingredients: [
+        'buns',
+        'pickles',
+        'patty',
+        'ketchup',
+        'mustard',
+        'tomato',
+        'lettuce',
+        'and most importantly love :)',
+      ],
+      directions: ['Do this', 'and this'],
+    },
   ]);
+  function setFav(event) {
+    const name = event.target.parentNode.textContent.slice(
+      2,
+      event.target.parentNode.textContent.length - 1
+    );
+    console.log(event);
+    const { directions, ingredients } = meals.filter(
+      (el) => el.name === name
+    )[0];
+    const newFavMeals = [...favMeals];
+    newFavMeals.push({ name, directions, ingredients });
+
+    setFavMeals(newFavMeals);
+  }
+  function removeFav(event) {
+    const name = event.target.parentNode.textContent.slice(
+      2,
+      event.target.parentNode.textContent.length - 1
+    );
+    console.log(name);
+    const newFavMeals = [...favMeals];
+
+    setFavMeals(newFavMeals.filter((el) => el.name !== name));
+  }
   const mealArray = [];
   meals.forEach((el, idx) => {
     if (rendererArray[idx]) {
+      const isFaved =
+        favMeals.filter((filterEl) => filterEl.name === el.name).length > 0;
       mealArray.push(
         <div id={idx.toString()} key={idx.toString()} className='no-drag'>
           <MealCard
+            isFaved={isFaved}
+            setFav={setFav}
+            removeFav={removeFav}
+            cartItems={cartItems}
+            setCartItems={setCartItems}
             unmount={unmount}
             name={el.name}
             directions={el.directions}
@@ -84,8 +156,6 @@ const App = () => {
     setRendererArray(newRendererArray);
   }
   function addMeal(num) {
-    console.log(num);
-    console.log('cool');
     //get request to backend
     const dummyObj = {
       name: 'cereal... with no milk',
@@ -123,30 +193,50 @@ const App = () => {
 
   return (
     <div id='app'>
-      <Aside />
-      <GridLayout
-        className='layout'
-        layout={[
-          { i: 'a', x: 0, y: 0, w: 20, h: 20 },
-          { i: 'b', x: 0, y: 20, w: 20, h: 20 },
-          { i: 'c', x: 0, y: 40, w: 20, h: 20 },
-          { i: 'd', x: 0, y: 60, w: 20, h: 20 },
-        ]}
-        cols={20}
-        rowHeight={30}
-        width={1200}
-        draggableCancel='.no-drag'
-      >
-        <div id='mealDisplay' key='a'>
-          <Filter addMeal={addMeal} />
-          <MealDisplay
-            mealArray={mealArray}
-            rendererArray={rendererArray}
-            layout={layout}
-            addMeal={addMeal.bind(this)}
-          />
-        </div>
-      </GridLayout>
+      <NavBar
+        setMasterRendererArray={setMasterRendererArray}
+        masterRendererArray={masterRendererArray}
+      />
+      <div id='asideAndDisplayHolder'>
+        <Aside pantryItems={pantryItems} cartItems={cartItems} />
+        <GridLayout
+          className='layout'
+          layout={[
+            { i: 'a', x: 0, y: 0, w: 20, h: 20 },
+            { i: 'b', x: 0, y: 20, w: 20, h: 20 },
+            { i: 'c', x: 0, y: 40, w: 20, h: 20 },
+            { i: 'd', x: 0, y: 60, w: 20, h: 20 },
+          ]}
+          cols={20}
+          rowHeight={30}
+          width={1200}
+          draggableCancel='.no-drag'
+        >
+          {masterRendererArray[0] && (
+            <div id='mealDisplay' key='a'>
+              <Filter addMeal={addMeal} />
+              <MealDisplay
+                mealArray={mealArray}
+                rendererArray={rendererArray}
+                layout={layout}
+                addMeal={addMeal.bind(this)}
+              />
+            </div>
+          )}
+          {masterRendererArray[1] && (
+            <div key='b'>
+              <FavsDisplay
+                setFav={setFav}
+                removeFav={removeFav}
+                favMeals={favMeals}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+                layout={layout}
+              />
+            </div>
+          )}
+        </GridLayout>
+      </div>
     </div>
   );
 };

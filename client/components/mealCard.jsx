@@ -3,13 +3,22 @@ import Popup from 'reactjs-popup';
 function MealCard(props) {
   const [addedToCart, setAddedToCart] = React.useState(false);
   const [side, setSide] = React.useState('ingredients');
-  const [isFaved, setIsFaved] = React.useState(false);
+  const [isFaved, setIsFaved] = React.useState(props.isFaved);
   const [rating, setRating] = React.useState(-4);
   const starArr = [];
   const ratingArr = [];
   const dummyListListed = [];
   const dummyDirectionsListed = [];
   const dummyListModal = [];
+  const addModalItems = (event, array) => {
+    const form = event.target.previousElementSibling;
+    for (let i = 0; i < form.length; i++) {
+      if (form[i].checked) {
+        array.push(form[i].value);
+      }
+    }
+    return array;
+  };
   props.ingredients.forEach((el) => {
     dummyListListed.push(<li>{el}</li>);
   });
@@ -42,18 +51,9 @@ function MealCard(props) {
   let missIngredientButton;
   if (addedToCart) {
     missIngredientButton = (
-      <Popup
-        trigger={
-          <button className='button addToCardButtonTrue'>
-            Add Missing Ingredients to Shopping List
-          </button>
-        }
-        modal
-      >
-        <div className='modalPopupWindow'>
-          <form class='missIngredientForm'>{dummyListModal}</form>
-        </div>
-      </Popup>
+      <button className='button addToCartButtonTrue'>
+        Added to your list!
+      </button>
     );
     // addToCartButtonFalse
   } else {
@@ -72,12 +72,18 @@ function MealCard(props) {
             <button className='close' onClick={close}>
               &times;
             </button>
-            {dummyListModal}{' '}
+
             <div className='actions'>
+              <form>{dummyListModal}</form>
               <button
                 className='button'
-                onClick={() => {
+                onClick={(event) => {
+                  // console.log(event.target.previousSibling[0].checked);s
                   console.log('modal closed ');
+                  setAddedToCart(true);
+                  const newCartItems = [...props.cartItems];
+                  addModalItems(event, newCartItems);
+                  props.setCartItems(newCartItems);
                   close();
                 }}
               >
@@ -146,8 +152,11 @@ function MealCard(props) {
   if (isFaved) {
     favButton = (
       <button
-        className='falseFavoriteButton'
-        onClick={() => setIsFaved(!isFaved)}
+        className='trueFavoriteButton'
+        onClick={(event) => {
+          props.removeFav(event);
+          setIsFaved(!isFaved);
+        }}
       >
         &lt;3
       </button>
@@ -155,8 +164,11 @@ function MealCard(props) {
   } else if (!isFaved) {
     favButton = (
       <button
-        className='trueFavoriteButton'
-        onClick={() => setIsFaved(!isFaved)}
+        className='falseFavoriteButton'
+        onClick={(event) => {
+          props.setFav(event);
+          setIsFaved(!isFaved);
+        }}
       >
         &lt;3
       </button>
