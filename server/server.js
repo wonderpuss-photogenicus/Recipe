@@ -14,7 +14,9 @@ db.once('open', () => console.log('Connected to Database'));
 //--m handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.get('/', (req, res, next) =>
+  res.sendFile(path.resolve(__dirname, '../index.html'))
+);
 //define route handlers
 // app.use('/api', apiRouter);
 
@@ -45,11 +47,17 @@ const PORT = 3000;
 
 //handle parsing request body
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 //handle requests for static files
-app.use(express.static(path.resolve(__dirname, '../client')));
-
+app.use(
+  '/client/stylesheets',
+  express.static(path.resolve(__dirname, '../client', 'stylesheets'))
+);
+app.use(
+  '/node_modules',
+  express.static(path.resolve(__dirname, '../node_modules'))
+);
 //define route handlers
 // app.use('/api', apiRouter);
 

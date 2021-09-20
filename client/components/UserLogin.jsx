@@ -2,7 +2,9 @@ import React from 'react';
 
 const UserLogin = (props) => {
   return (
-    <div>
+    <div id='loginPanel'>
+      <h1>RECIPE</h1>
+      <h2>Find Recipe Inspiration</h2>
       Username
       <input type='text' id='username' name='username' />
       Password

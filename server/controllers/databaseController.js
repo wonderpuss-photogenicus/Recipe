@@ -1,6 +1,8 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/users');
 const databaseController = {};
 
 // Route for getting all users
@@ -32,8 +34,9 @@ databaseController.createUser = async (req, res, next) => {
     });
     const newUser = await user.save();
     res.status(201).json(newUser); // send .send() blank response
-    next();
+    // next();
   } catch (err) {
+    console.log(req.body);
     res.status(400).json({ message: err.message });
   }
 };
@@ -50,21 +53,22 @@ databaseController.deleteUser = async (req, res, next) => {
 };
 
 // AUTHENTICATE USER * STRETCH * NOT 100% WORKING
-// databaseController.authenticateUser = async (req, res, next) => {
-//   const user = users.find(user => user.name = req.body.name)
-//   if (user == null) {
-//     return res.status(400).send('Cannot find user')
-//   }
-//   try {
-//     if (await bcrypt.compare(req.body.password, user.password)) {
-//       res.send('Send to their page')
-//     } else {
-//       res.send('The username or password is incorrect')
-//     }
-//     next();
-//   } catch {
-//     res.status(500).send()
-//   }
-// }
+databaseController.authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({ username: req.body.username });
+  console.log(user);
+  if (user == null) {
+    return res.status(400).send('Cannot find user');
+  }
+  try {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      res.send('Send to their page');
+    } else {
+      res.send('The username or password is incorrect');
+    }
+    next();
+  } catch {
+    res.status(500).send();
+  }
+};
 
 module.exports = databaseController;
