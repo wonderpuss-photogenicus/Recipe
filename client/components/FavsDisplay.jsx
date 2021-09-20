@@ -12,21 +12,22 @@ const FavsDisplay = (props) => {
     mealsArr.push(
       <div id={idx.toString()} key={idx.toString()} className='no-drag'>
         <MealCard
+          img={el.img}
           setFav={props.setFav}
           removeFav={props.removeFav}
           isFaved={true}
           cartItems={props.cartItems}
           setCartItems={props.setCartItems}
           name={el.name}
-          directions={el.directions}
+          directions={el.directions || 'no instructions found :('}
           ingredients={el.ingredients}
         />
       </div>
     );
   });
   return (
-    <div id='favDisplay'>
-      Favs Display
+    <div>
+      <h3>My Favorite Meals</h3>
       <GridLayout
         className='layout'
         layout={props.layout}

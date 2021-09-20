@@ -1,10 +1,11 @@
 .no-drag {
+  background-color: #b5c99a;
   /* width: 10rem;
   height: 100%; */
-  border: 1px black solid;
+  /* border: 1px black solid; */
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #app {
@@ -14,10 +15,16 @@
 #asideAndDisplayHolder {
   display: flex;
 }
+#aside h3 {
+  text-align: center;
+}
 #aside {
-  width: 10vw;
+  font-size: 13px;
+  margin-top: 0.6rem;
+  background-color: #cfe1b9;
+  width: 20vw;
   height: 90vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 #filter {
   display: flex;
@@ -29,14 +36,24 @@
 }
 
 .falseFavoriteButton {
-  background-color: green;
+  background-color: #718355;
   width: 30px;
 }
-.mealCard ol,
-.mealCard ul {
-  font-size: 13px;
+
+.no-drag li,
+.no-drag p {
+  font-size: 12px;
 }
-.mealCard ul {
+.no-drag p {
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+.modalPopupWindow button {
+  margin-bottom: 3rem;
+  margin-left: 3rem;
+}
+.no-drag ul {
   columns: 2;
 }
 .mealCardLink {
@@ -46,7 +63,7 @@
   justify-content: center;
 }
 .trueFavoriteButton {
-  background-color: yellow;
+  background-color: #e09f3e;
   width: 30px;
 }
 .favAndCloseHolder {
@@ -63,10 +80,11 @@
   margin: 1rem 0;
 }
 .isActive {
-  background-color: green;
+  background-color: #718355;
 }
 .mealCardList {
-  overflow-y: scroll;
+  border-radius: 0;
+  overflow-y: auto;
   height: 100px;
   margin: 0.5rem;
   border: solid 1px black;
@@ -76,10 +94,14 @@
 .ratingStar3true,
 .ratingStar4true,
 .ratingStar5true {
-  background-color: yellow;
+  background-color: #e09f3e;
 }
 .addToCartButtonFalse {
-  background-color: red;
+  background-color: #ee6c4d;
+}
+a {
+  color: black;
+  font-size: 13px;
 }
 .addToCartButtonTrue {
   background-color: green;
@@ -106,24 +128,41 @@
 }
 
 .modalPopupWindow {
-  background-color: #dddddd;
+  background-color: #97a97c;
   height: 300px;
   width: 300px;
   display: flex;
-  overflow-y: scroll;
+  overflow-y: auto;
   flex-direction: column;
 }
-
+.actions form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  font-size: 14px;
+}
 .missIngredientForm {
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
 .navBar {
-  width: 95%;
+  background-color: #b5c99a;
   display: flex;
-  border: solid 1px black;
+  margin-bottom: 1rem;
+  /* border: solid 1px black; */
   align-self: center;
+  justify-content: space-evenly;
+}
+button {
+  border-radius: 3px;
+}
+.navBar button {
+  background-color: #718355;
+  border-radius: 2px;
+}
+.navBar button:last-of-type {
+  margin-right: 2rem;
 }
 .modalPopupWindow > .close {
   cursor: pointer;
@@ -136,17 +175,64 @@
   font-size: 24px;
   background: #ffffff;
   border-radius: 18px;
-  border: 1px solid #cfcece;
+  /* border: 1px solid #97a97c; */
 }
 #mealDisplay {
   width: 80vw;
-  overflow-y: scroll;
-  border: solid 1px black;
+  overflow-y: auto;
+  background-color: #cfe1b9;
+  /* border: solid 1px black; */
   display: flex;
 }
 #favDisplay {
   width: 80vw;
-  overflow-y: scroll;
-  border: solid 1px black;
+  overflow-y: auto;
+  /* border: solid 1px black;
+*/
+  background-color: #cfe1b9;
   display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+body {
+  background-color: #e9f5db;
+  font-family: Roboto, sans-serif;
+}
+#loginPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#loginPanel button,
+#loginPanel input {
+  max-width: 10rem;
+}
+#loginPanel input:last-of-type {
+  margin-bottom: 2rem;
+}
+#loginPanel button {
+  background-color: #718355;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+#loginPanel h2 {
+  margin-bottom: 2rem;
+}
+* {
+  background-color: inherit;
+}
+#filter {
+  margin-left: 2rem;
+  justify-content: space-around;
+  max-height: 400px;
+}
+#filter label {
+  font-size: 13px;
+}
+#filter select {
+  margin-left: 1rem;
+}
+#filter button,
+#filter select {
+  max-width: 5rem;
 }

@@ -22,9 +22,9 @@ function MealCard(props) {
   props.ingredients.forEach((el) => {
     dummyListListed.push(<li>{el}</li>);
   });
-  props.directions.forEach((el) => {
-    dummyDirectionsListed.push(<li>{el}</li>);
-  });
+  // props.directions.forEach((el) => {
+  //   dummyDirectionsListed.push(<li>{el}</li>);
+  // });
 
   props.ingredients.forEach((el) => {
     dummyListModal.push(
@@ -130,7 +130,7 @@ function MealCard(props) {
       </div>
     );
   } else if (side === 'directions') {
-    list = <ol>{dummyDirectionsListed}</ol>;
+    list = <p>{props.directions}</p>;
     buttonArr.push(
       <div>
         <button
@@ -183,7 +183,7 @@ function MealCard(props) {
         {closeButton}
       </div>
       <div className='imgHolder'>
-        <img src='https://i.imgur.com/mSVtgYm.jpg' />
+        <img src={props.img} />
       </div>
 
       <div className='buttonHolder'>{buttonArr}</div>
