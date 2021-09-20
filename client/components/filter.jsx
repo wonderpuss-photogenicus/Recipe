@@ -8,7 +8,23 @@ const Filter = (props) => {
       document.querySelector('#ingredientSelect').value;
     const isPantryOnly = document.querySelector('#pantrySelect').checked;
     const countSelection = document.querySelector('#countSelect').value;
-
+    let ingredientString = '';
+    if (isPantryOnly) {
+      props.pantryList.forEach((el) => {
+        ingredientString += `${el},`;
+      });
+      ingredientSelection = ingredientString;
+    }
+    axios({
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      data: {
+        cuisine: cuisineSelection,
+        ingredients: ingredientSelection,
+      },
+      url: '/api/find',
+    });
+    //response -> get back array of objects each with ingredients, directions, image, name populate
     props.addMeal(countSelection);
 
     console.log(cuisineSelection);
@@ -18,6 +34,7 @@ const Filter = (props) => {
   }
   return (
     <div id='filter'>
+      <h2>Find New Meals!</h2>
       <label htmlFor=''>
         Cuisine
         <select type='select' id='cuisineSelect'>
