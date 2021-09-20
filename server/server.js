@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
+
+
 mongoose.connect('mongodb://localhost/users');
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
@@ -73,4 +75,6 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
+
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+

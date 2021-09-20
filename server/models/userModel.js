@@ -4,18 +4,20 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   pantry: {
-    type: Array,
+    type: Array
   },
   shoppingList: {
-    type: Array,
-  },
-});
+    type: Array
+  }
+})
 
 module.exports = mongoose.model('User', userSchema);
+

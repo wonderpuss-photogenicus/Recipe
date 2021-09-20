@@ -1,3 +1,4 @@
+
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 
@@ -6,37 +7,45 @@ const databaseController = {};
 // Route for getting all users
 databaseController.getAllUsers = async (req, res, next) => {
   try {
+
     const users = await User.find();
     res.locals.users = users;
     // res.json(users);
     next();
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+
+  }  catch (err) {
+    res.status(500).json({ message: err.message })
   }
-};
+}
+
 
 // Getting one user
 databaseController.getUser = (req, res, next) => {
   // res.json(res.user)
   next();
+
 };
+
 
 // Creating user
 databaseController.createUser = async (req, res, next) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
     console.log(req.body.password);
     const user = new User({
-      username: req.body.username,
-      password: hashedPassword,
-    });
-    const newUser = await user.save();
-    res.status(201).json(newUser); // send .send() blank response
+      username: req.body.username, 
+      password: hashedPassword
+    })
+    const newUser = await user.save()
+    res.status(201).json(newUser) // send .send() blank response
     next();
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: err.message })
   }
-};
+}
+
 
 // Deleting one user
 databaseController.deleteUser = async (req, res, next) => {
@@ -45,9 +54,11 @@ databaseController.deleteUser = async (req, res, next) => {
     // res.json({ message: 'Deleted user' })
     next();
   } catch (err) {
+
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // AUTHENTICATE USER * STRETCH * NOT 100% WORKING
 // databaseController.authenticateUser = async (req, res, next) => {
@@ -67,4 +78,6 @@ databaseController.deleteUser = async (req, res, next) => {
 //   }
 // }
 
+
 module.exports = databaseController;
+
