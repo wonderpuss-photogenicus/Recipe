@@ -40,8 +40,18 @@
   width: 30px;
 }
 
-.no-drag li {
+.no-drag li,
+.no-drag p {
   font-size: 12px;
+}
+.no-drag p {
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+.modalPopupWindow button {
+  margin-bottom: 3rem;
+  margin-left: 3rem;
 }
 .no-drag ul {
   columns: 2;
@@ -125,7 +135,12 @@ a {
   overflow-y: auto;
   flex-direction: column;
 }
-
+.actions form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  font-size: 14px;
+}
 .missIngredientForm {
   overflow-y: auto;
   display: flex;

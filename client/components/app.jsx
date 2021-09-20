@@ -38,10 +38,11 @@ const App = () => {
         'lettuce',
         'and most importantly love :)',
       ],
-      directions: ['Do this', 'and this'],
+      directions: 'make a krabby patty :)',
+      img: 'https://i.imgur.com/mSVtgYm.jpg',
     },
   ]);
-  const [pantryItems, setPantryItems] = React.useState(['veg', 'grains']);
+  const [pantryItems, setPantryItems] = React.useState(['onions', 'eggs']);
   const [cartItems, setCartItems] = React.useState(['fruit', 'sauce']);
 
   const dummyList = [
@@ -59,29 +60,20 @@ const App = () => {
     'ramen',
     'ramen',
   ];
-  const dummyDirections = [
-    'Make some food',
-    'I love writing fake recipes',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-  ];
+  const dummyDirections = 'do stuff';
+
   const [meals, setMeals] = React.useState([
     {
       name: "Mama's Lasagna",
       ingredients: dummyList,
       directions: dummyDirections,
+      img: 'https://i.imgur.com/mSVtgYm.jpg',
     },
     {
       name: "Papa's Lasagna",
       ingredients: dummyList,
       directions: dummyDirections,
+      img: 'https://i.imgur.com/mSVtgYm.jpg',
     },
     {
       name: 'Krabby Patty',
@@ -95,7 +87,8 @@ const App = () => {
         'lettuce',
         'and most importantly love :)',
       ],
-      directions: ['Do this', 'and this'],
+      directions: 'make a krabby patty :)',
+      img: 'https://i.imgur.com/mSVtgYm.jpg',
     },
   ]);
   function loginUser(event) {
@@ -123,6 +116,11 @@ const App = () => {
         username: event.target.parentNode.children[2].value,
         password: event.target.parentNode.children[3].value,
       },
+    }).then((data) => {
+      if (data.data === 'Send to their page') {
+        alert('New User Created');
+        setIsLoggedIn(true);
+      }
     });
     console.log(event.target.parentNode.children[2].value); //username
     console.log(event.target.parentNode.children[3].value); //password
@@ -133,11 +131,11 @@ const App = () => {
       event.target.parentNode.textContent.length - 1
     );
     console.log(event);
-    const { directions, ingredients } = meals.filter(
+    const { directions, ingredients, img } = meals.filter(
       (el) => el.name === name
     )[0];
     const newFavMeals = [...favMeals];
-    newFavMeals.push({ name, directions, ingredients });
+    newFavMeals.push({ name, directions, ingredients, img });
 
     setFavMeals(newFavMeals);
   }
@@ -159,6 +157,7 @@ const App = () => {
       mealArray.push(
         <div id={idx.toString()} key={idx.toString()} className='no-drag'>
           <MealCard
+            img={el.img}
             isFaved={isFaved}
             setFav={setFav}
             removeFav={removeFav}
@@ -166,7 +165,7 @@ const App = () => {
             setCartItems={setCartItems}
             unmount={unmount}
             name={el.name}
-            directions={el.directions}
+            directions={el.directions || 'No directions found :('}
             ingredients={el.ingredients}
           />
         </div>
@@ -187,7 +186,8 @@ const App = () => {
     // console.log(newLayout);
     setRendererArray(newRendererArray);
   }
-  function addMeal(num) {
+  function addMeal(array) {
+    //array of objects, we can just pass this into the state
     //get request to backend
     const dummyObj = {
       name: 'cereal... with no milk',
@@ -197,8 +197,8 @@ const App = () => {
     const newMeals = [...meals];
     const newLayout = [...layout];
     const newRendererArray = [...rendererArray];
-    for (let i = 0; i < num; i++) {
-      newMeals.push(dummyObj);
+    for (let i = 0; i < array.length; i++) {
+      newMeals.push(array[i]);
       if (newLayout[newLayout.length - 1].x < 9) {
         newLayout.push({
           i: newLayout.length.toString(),
@@ -230,8 +230,15 @@ const App = () => {
           masterRendererArray={masterRendererArray}
         />
         <div id='asideAndDisplayHolder'>
-          <Aside pantryItems={pantryItems} cartItems={cartItems} />
+          <Aside
+            pantryItems={pantryItems}
+            cartItems={cartItems}
+            setPantryItems={setPantryItems}
+            setCartItems={setCartItems}
+          />
           <GridLayout
+            measureBeforeMount={true}
+            autoSize={true}
             className='layout'
             layout={[
               { i: 'a', x: 0, y: 0, w: 20, h: 13 },
@@ -246,7 +253,7 @@ const App = () => {
           >
             {masterRendererArray[0] && (
               <div id='mealDisplay' key='a'>
-                <Filter addMeal={addMeal} />
+                <Filter addMeal={addMeal} pantryItems={pantryItems} />
                 <MealDisplay
                   mealArray={mealArray}
                   rendererArray={rendererArray}

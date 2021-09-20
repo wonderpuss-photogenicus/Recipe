@@ -14,7 +14,7 @@ const NavBar = (props) => {
             changeMasterRendererArray(0);
           }}
         >
-          Add Meal +{' '}
+          Find New Meals
         </button>
       </ul>
       <ul className='favMeal'>
