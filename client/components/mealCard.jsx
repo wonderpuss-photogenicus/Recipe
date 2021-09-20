@@ -1,55 +1,26 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 function MealCard(props) {
-  const ref = React.createRef();
-  const starArr = [];
-  const [isOpen, setIsOpen] = React.useState(true);
   const [addedToCart, setAddedToCart] = React.useState(false);
   const [side, setSide] = React.useState('ingredients');
   const [isFaved, setIsFaved] = React.useState(false);
   const [rating, setRating] = React.useState(-4);
+  const starArr = [];
   const ratingArr = [];
-  const dummyList = [
-    'onions',
-    'bread',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-  ];
-  const dummyDirections = [
-    'Make some food',
-    'I love writing fake recipes',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-    'Call me Paula Deen',
-  ];
   const dummyListListed = [];
   const dummyDirectionsListed = [];
+  const dummyListModal = [];
   props.ingredients.forEach((el) => {
     dummyListListed.push(<li>{el}</li>);
   });
   props.directions.forEach((el) => {
     dummyDirectionsListed.push(<li>{el}</li>);
   });
-  const dummyListModal = [];
+
   props.ingredients.forEach((el) => {
     dummyListModal.push(
       <>
-        <label for={el}>
+        <label for={el} key={el}>
           <input type='checkbox' id={el} name={el} value={el} defaultChecked />
           {el}
         </label>
@@ -191,33 +162,30 @@ function MealCard(props) {
       </button>
     );
   }
-  if (isOpen)
-    return (
-      <div>
-        <div className='favAndCloseHolder'>
-          {favButton}
-          {props.name}
-          {closeButton}
-        </div>
-        <div className='imgHolder'>
-          <img src='https://i.imgur.com/mSVtgYm.jpg' />
-        </div>
 
-        <div className='buttonHolder'>{buttonArr}</div>
-        <div className='mealCardContainer'>
-          <div class='mealCardList'>{list}</div>
-
-          <div className='missIngredientHolder'>{missIngredientButton}</div>
-          <div className='mealCardLink'>
-            <a href='#'>Original Recipe</a>
-          </div>
-          <div className='starArr'>{starArr}</div>
-        </div>
+  return (
+    <div>
+      <div className='favAndCloseHolder'>
+        {favButton}
+        {props.name}
+        {closeButton}
       </div>
-    );
-  else {
-    return;
-  }
+      <div className='imgHolder'>
+        <img src='https://i.imgur.com/mSVtgYm.jpg' />
+      </div>
+
+      <div className='buttonHolder'>{buttonArr}</div>
+      <div className='mealCardContainer'>
+        <div class='mealCardList'>{list}</div>
+
+        <div className='missIngredientHolder'>{missIngredientButton}</div>
+        <div className='mealCardLink'>
+          <a href='#'>Original Recipe</a>
+        </div>
+        <div className='starArr'>{starArr}</div>
+      </div>
+    </div>
+  );
 }
 
 export default MealCard;

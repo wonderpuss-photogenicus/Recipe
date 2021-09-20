@@ -1,11 +1,23 @@
-.mealCard {
+.no-drag {
   /* width: 10rem;
   height: 100%; */
   border: 1px black solid;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
-
+#app {
+  display: flex;
+}
+#aside {
+  width: 10vw;
+  height: 90vh;
+  border: 1px solid black;
+}
+#filter {
+  display: flex;
+  flex-direction: column;
+}
 .starArr input {
   width: 12px;
   height: 12px;
@@ -117,7 +129,8 @@
   border: 1px solid #cfcece;
 }
 #mealDisplay {
-  width: 90vw;
+  width: 80vw;
+  overflow-y: scroll;
   border: solid 1px black;
   display: flex;
 }
