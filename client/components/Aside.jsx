@@ -1,9 +1,6 @@
 import React from 'react';
 
 const Aside = () => {
-  const pantryItems = [{ index: 0, name: 'veg' }];
-  const cartItems = [{ index: 0, name: 'fruit' }];
-
   const pantryItems = [
     { index: 0, name: 'veg' },
     { index: 1, name: 'grains' },
