@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express');
-const recipeController= require('./controllers/recipeController');
 const usersRouter = require('./routers/users')
 
 const app = express();
@@ -8,7 +7,7 @@ const mongoose = require('mongoose');
 const PORT = 3000;
 
 mongoose.connect('mongodb://localhost/users');
-const db = mongoose.connection
+const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to Database'));
 
@@ -31,7 +30,9 @@ app.use('/users', usersRouter)
 // app.use('/api', apiRouter);
 
 // catch-all route handler for any requests to an unknown route
-app.use((req, res) => res.status(404).send('This is not the recipe you\'re looking for...'));
+app.use((req, res) =>
+  res.status(404).send("This is not the recipe you're looking for...")
+);
 
 /**
  * express error handler

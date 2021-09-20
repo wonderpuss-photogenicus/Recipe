@@ -1,0 +1,152 @@
+.no-drag {
+  /* width: 10rem;
+  height: 100%; */
+  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+#asideAndDisplayHolder {
+  display: flex;
+}
+#aside {
+  width: 10vw;
+  height: 90vh;
+  border: 1px solid black;
+}
+#filter {
+  display: flex;
+  flex-direction: column;
+}
+.starArr input {
+  width: 12px;
+  height: 12px;
+}
+
+.falseFavoriteButton {
+  background-color: green;
+  width: 30px;
+}
+.mealCard ol,
+.mealCard ul {
+  font-size: 13px;
+}
+.mealCard ul {
+  columns: 2;
+}
+.mealCardLink {
+  font-size: 15px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+.trueFavoriteButton {
+  background-color: yellow;
+  width: 30px;
+}
+.favAndCloseHolder {
+  display: flex;
+  justify-content: space-between;
+}
+.buttonHolder {
+  display: flex;
+  justify-content: space-around;
+}
+.starArr {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.isActive {
+  background-color: green;
+}
+.mealCardList {
+  overflow-y: scroll;
+  height: 100px;
+  margin: 0.5rem;
+  border: solid 1px black;
+}
+.ratingStar1true,
+.ratingStar2true,
+.ratingStar3true,
+.ratingStar4true,
+.ratingStar5true {
+  background-color: yellow;
+}
+.addToCartButtonFalse {
+  background-color: red;
+}
+.addToCartButtonTrue {
+  background-color: green;
+}
+.mealCard button {
+  border-radius: 5px;
+}
+.missIngredientHolder {
+  display: flex;
+  justify-content: center;
+}
+.missIngredientHolder button {
+  margin: 0 1rem;
+}
+.imgHolder img {
+  max-width: 80%;
+  height: 80%;
+}
+.imgHolder {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 1rem 0;
+}
+
+.modalPopupWindow {
+  background-color: #dddddd;
+  height: 300px;
+  width: 300px;
+  display: flex;
+  overflow-y: scroll;
+  flex-direction: column;
+}
+
+.missIngredientForm {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+.navBar {
+  width: 95%;
+  display: flex;
+  border: solid 1px black;
+  align-self: center;
+}
+.modalPopupWindow > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
+#mealDisplay {
+  width: 80vw;
+  overflow-y: scroll;
+  border: solid 1px black;
+  display: flex;
+}
+#favDisplay {
+  width: 80vw;
+  overflow-y: scroll;
+  border: solid 1px black;
+  display: flex;
+}
