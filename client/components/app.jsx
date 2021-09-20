@@ -10,6 +10,7 @@ import MealCard from './MealCard.jsx';
 import Filter from './Filter.jsx';
 import FavsDisplay from './FavsDisplay.jsx';
 import UserLogin from './UserLogin.jsx';
+import axios from 'axios';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [masterRendererArray, setMasterRendererArray] = React.useState([
@@ -98,6 +99,26 @@ const App = () => {
     },
   ]);
   function loginUser(event) {
+    axios({
+      method: 'post',
+      url: '/user/login',
+      body: {
+        username: console.log(event.target.parentNode.children[0].value),
+        username: console.log(event.target.parentNode.children[1].value),
+      },
+    });
+    console.log(event.target.parentNode.children[0].value); //username
+    console.log(event.target.parentNode.children[1].value); //password
+  }
+  function createUser(event) {
+    axios({
+      method: 'post',
+      url: '/user/create',
+      body: {
+        username: console.log(event.target.parentNode.children[0].value),
+        username: console.log(event.target.parentNode.children[1].value),
+      },
+    });
     console.log(event.target.parentNode.children[0].value); //username
     console.log(event.target.parentNode.children[1].value); //password
   }
@@ -246,7 +267,7 @@ const App = () => {
       </div>
     );
   } else {
-    return <UserLogin loginUser={loginUser} />;
+    return <UserLogin loginUser={loginUser} createUser={createUser} />;
   }
 };
 
