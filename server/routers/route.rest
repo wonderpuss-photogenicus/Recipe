@@ -3,7 +3,7 @@ GET http://localhost:3000/users
 
 ###
 // Gets specific users in db
-GET http://localhost:3000/users/614636da7f243026c922c4d8
+GET http://localhost:3000/users/6147af6be02c1b2c38163edf
 
 ###
 // Adds users to db
@@ -11,10 +11,20 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "username": "mike",
+  "username": "june",
   "password": "bigBrain"
 }
 
 ###
 // Deletes specific users from db
-DELETE http://localhost:3000/users/6146374d6c90cf283f2bccd6
+DELETE http://localhost:3000/users/6147af6be02c1b2c38163edf
+
+###
+// Adds users to db
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "username": "june",
+  "password": "bigBrain"
+}
