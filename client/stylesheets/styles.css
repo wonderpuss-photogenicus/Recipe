@@ -1,0 +1,223 @@
+.no-drag {
+  background-color: #b5c99a;
+  /* width: 10rem;
+  height: 100%; */
+  /* border: 1px black solid; */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+#asideAndDisplayHolder {
+  display: flex;
+}
+#aside h3 {
+  text-align: center;
+}
+#aside {
+  font-size: 13px;
+  margin-top: 0.6rem;
+  background-color: #cfe1b9;
+  width: 20vw;
+  height: 90vh;
+  /* border: 1px solid black; */
+}
+#filter {
+  display: flex;
+  flex-direction: column;
+}
+.starArr input {
+  width: 12px;
+  height: 12px;
+}
+
+.falseFavoriteButton {
+  background-color: #718355;
+  width: 30px;
+}
+
+.no-drag li {
+  font-size: 12px;
+}
+.no-drag ul {
+  columns: 2;
+}
+.mealCardLink {
+  font-size: 15px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+.trueFavoriteButton {
+  background-color: #e09f3e;
+  width: 30px;
+}
+.favAndCloseHolder {
+  display: flex;
+  justify-content: space-between;
+}
+.buttonHolder {
+  display: flex;
+  justify-content: space-around;
+}
+.starArr {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.isActive {
+  background-color: #718355;
+}
+.mealCardList {
+  border-radius: 0;
+  overflow-y: auto;
+  height: 100px;
+  margin: 0.5rem;
+  border: solid 1px black;
+}
+.ratingStar1true,
+.ratingStar2true,
+.ratingStar3true,
+.ratingStar4true,
+.ratingStar5true {
+  background-color: #e09f3e;
+}
+.addToCartButtonFalse {
+  background-color: #ee6c4d;
+}
+a {
+  color: black;
+  font-size: 13px;
+}
+.addToCartButtonTrue {
+  background-color: green;
+}
+.mealCard button {
+  border-radius: 5px;
+}
+.missIngredientHolder {
+  display: flex;
+  justify-content: center;
+}
+.missIngredientHolder button {
+  margin: 0 1rem;
+}
+.imgHolder img {
+  max-width: 80%;
+  height: 80%;
+}
+.imgHolder {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 1rem 0;
+}
+
+.modalPopupWindow {
+  background-color: #97a97c;
+  height: 300px;
+  width: 300px;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.missIngredientForm {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.navBar {
+  background-color: #b5c99a;
+  display: flex;
+  margin-bottom: 1rem;
+  /* border: solid 1px black; */
+  align-self: center;
+  justify-content: space-evenly;
+}
+button {
+  border-radius: 3px;
+}
+.navBar button {
+  background-color: #718355;
+  border-radius: 2px;
+}
+.navBar button:last-of-type {
+  margin-right: 2rem;
+}
+.modalPopupWindow > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  /* border: 1px solid #97a97c; */
+}
+#mealDisplay {
+  width: 80vw;
+  overflow-y: auto;
+  background-color: #cfe1b9;
+  /* border: solid 1px black; */
+  display: flex;
+}
+#favDisplay {
+  width: 80vw;
+  overflow-y: auto;
+  /* border: solid 1px black;
+*/
+  background-color: #cfe1b9;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+body {
+  background-color: #e9f5db;
+  font-family: Roboto, sans-serif;
+}
+#loginPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#loginPanel button,
+#loginPanel input {
+  max-width: 10rem;
+}
+#loginPanel input:last-of-type {
+  margin-bottom: 2rem;
+}
+#loginPanel button {
+  background-color: #718355;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+#loginPanel h2 {
+  margin-bottom: 2rem;
+}
+* {
+  background-color: inherit;
+}
+#filter {
+  margin-left: 2rem;
+  justify-content: space-around;
+  max-height: 400px;
+}
+#filter label {
+  font-size: 13px;
+}
+#filter select {
+  margin-left: 1rem;
+}
+#filter button,
+#filter select {
+  max-width: 5rem;
+}
