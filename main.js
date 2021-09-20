@@ -8,6 +8,7 @@ const PORT = 3000;
 
 //api link to spoonacular: https://api.spoonacular.com/recipes/{id}/information
 //api docs for spoonaculat: https://spoonacular.com/food-api/docs
+//api key: 6e3f2dca30e44d3fbd48a3fee49ed05a
 
 mongoose.connect('mongodb+srv://odonnelm1:<3mongooses>@cluster0.ywbh1.mongodb.net/recipeDB?retryWrites=true&w=majority'); //not 100% sure if this should be connected to database or API link
 mongoose.connection.once('open', () => {
@@ -21,6 +22,6 @@ const recipeRouter = express.Router();
 app.use('/recipe', recipeRouter); //connects to overall recipe app - named Recipe-Dev here for now
 
 recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {
-    if (res.locals.recipe) {return res.status(200).json({...res.locals.recipe});} 
+    if (res.params.recipe) {return res.status(200).json({...res.params.recipe});} 
     else {return res.status(400).send('Could not find recipe.');}
   });

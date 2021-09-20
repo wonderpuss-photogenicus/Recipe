@@ -9,3 +9,26 @@ recipeController.findMeals = (req, res, next) => {
 }
 
 /* Spoonacular Docs: https://spoonacular.com/food-api/docs */
+//example of fetch request from frontend to API: 
+// componentDidMount() {
+//     //additional params and api key needed at end of fetch req
+//     fetch("https://api.spoonacular.com/recipes/findByIngredients?ingredients=<ingredientStringInput>") //ingredientStringInput
+//       .then(res => res.json())
+//       .then(
+//         (result) => {
+//           this.setState({
+//             isLoaded: true,
+//             items: result.items
+//           });
+//         },
+//         // Note: it's important to handle errors here
+//         // instead of a catch() block so that we don't swallow
+//         // exceptions from actual bugs in components.
+//         (error) => {
+//           this.setState({
+//             isLoaded: true,
+//             error
+//           });
+//         }
+//       )
+//   }
