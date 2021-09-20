@@ -9,7 +9,10 @@ import GridLayout from 'react-grid-layout';
 import MealCard from './MealCard.jsx';
 import Filter from './Filter.jsx';
 import FavsDisplay from './FavsDisplay.jsx';
+import UserLogin from './UserLogin.jsx';
+import axios from 'axios';
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [masterRendererArray, setMasterRendererArray] = React.useState([
     true,
     true,
@@ -95,6 +98,30 @@ const App = () => {
       directions: ['Do this', 'and this'],
     },
   ]);
+  function loginUser(event) {
+    axios({
+      method: 'post',
+      url: '/user/login',
+      body: {
+        username: console.log(event.target.parentNode.children[0].value),
+        username: console.log(event.target.parentNode.children[1].value),
+      },
+    });
+    console.log(event.target.parentNode.children[0].value); //username
+    console.log(event.target.parentNode.children[1].value); //password
+  }
+  function createUser(event) {
+    axios({
+      method: 'post',
+      url: '/user/create',
+      body: {
+        username: console.log(event.target.parentNode.children[0].value),
+        username: console.log(event.target.parentNode.children[1].value),
+      },
+    });
+    console.log(event.target.parentNode.children[0].value); //username
+    console.log(event.target.parentNode.children[1].value); //password
+  }
   function setFav(event) {
     const name = event.target.parentNode.textContent.slice(
       2,
@@ -190,55 +217,58 @@ const App = () => {
     setLayout(newLayout);
     setRendererArray(newRendererArray);
   }
-
-  return (
-    <div id='app'>
-      <NavBar
-        setMasterRendererArray={setMasterRendererArray}
-        masterRendererArray={masterRendererArray}
-      />
-      <div id='asideAndDisplayHolder'>
-        <Aside pantryItems={pantryItems} cartItems={cartItems} />
-        <GridLayout
-          className='layout'
-          layout={[
-            { i: 'a', x: 0, y: 0, w: 20, h: 20 },
-            { i: 'b', x: 0, y: 20, w: 20, h: 20 },
-            { i: 'c', x: 0, y: 40, w: 20, h: 20 },
-            { i: 'd', x: 0, y: 60, w: 20, h: 20 },
-          ]}
-          cols={20}
-          rowHeight={30}
-          width={1200}
-          draggableCancel='.no-drag'
-        >
-          {masterRendererArray[0] && (
-            <div id='mealDisplay' key='a'>
-              <Filter addMeal={addMeal} />
-              <MealDisplay
-                mealArray={mealArray}
-                rendererArray={rendererArray}
-                layout={layout}
-                addMeal={addMeal.bind(this)}
-              />
-            </div>
-          )}
-          {masterRendererArray[1] && (
-            <div key='b'>
-              <FavsDisplay
-                setFav={setFav}
-                removeFav={removeFav}
-                favMeals={favMeals}
-                cartItems={cartItems}
-                setCartItems={setCartItems}
-                layout={layout}
-              />
-            </div>
-          )}
-        </GridLayout>
+  if (isLoggedIn) {
+    return (
+      <div id='app'>
+        <NavBar
+          setMasterRendererArray={setMasterRendererArray}
+          masterRendererArray={masterRendererArray}
+        />
+        <div id='asideAndDisplayHolder'>
+          <Aside pantryItems={pantryItems} cartItems={cartItems} />
+          <GridLayout
+            className='layout'
+            layout={[
+              { i: 'a', x: 0, y: 0, w: 20, h: 20 },
+              { i: 'b', x: 0, y: 20, w: 20, h: 20 },
+              { i: 'c', x: 0, y: 40, w: 20, h: 20 },
+              { i: 'd', x: 0, y: 60, w: 20, h: 20 },
+            ]}
+            cols={20}
+            rowHeight={30}
+            width={1200}
+            draggableCancel='.no-drag'
+          >
+            {masterRendererArray[0] && (
+              <div id='mealDisplay' key='a'>
+                <Filter addMeal={addMeal} />
+                <MealDisplay
+                  mealArray={mealArray}
+                  rendererArray={rendererArray}
+                  layout={layout}
+                  addMeal={addMeal.bind(this)}
+                />
+              </div>
+            )}
+            {masterRendererArray[1] && (
+              <div key='b'>
+                <FavsDisplay
+                  setFav={setFav}
+                  removeFav={removeFav}
+                  favMeals={favMeals}
+                  cartItems={cartItems}
+                  setCartItems={setCartItems}
+                  layout={layout}
+                />
+              </div>
+            )}
+          </GridLayout>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <UserLogin loginUser={loginUser} createUser={createUser} />;
+  }
 };
 
 export default App;
