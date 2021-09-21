@@ -60,7 +60,6 @@ const Aside = (props) => {
         <button
           onClick={() => {
             props.setCartItems(props.cartItems.concat([cartItemInput]));
-            value = '';
           }}
         >
           Add to List

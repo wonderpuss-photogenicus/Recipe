@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 const Filter = (props) => {
-  function sendQueryParams() {
-    //logic to post request to given route
-    console.log('something');
+  //a poorly written function to grab user input data and send it to the backend to then call api
+  function getRecipe() {
+    //just grabbing some of the userinput here!
     const cuisineSelection = document.querySelector('#cuisineSelect').value;
     let ingredientSelection = document.querySelector('#ingredientSelect').value;
     const isPantryOnly = document.querySelector('#pantrySelect').checked;
     const countSelection = document.querySelector('#countSelect').value;
+    //here we are resetting the ingredient selection to be just the pantryItems in state as a comma-separated string, if the 'pantry-only items' button is selected
     let ingredientString = '';
     if (isPantryOnly) {
       props.pantryItems.forEach((el) => {
@@ -26,13 +27,18 @@ const Filter = (props) => {
       url: '/recipes/find',
     }).then((data) => {
       console.log(data);
-      const newObjArr = [];
+      const newObjArr = []; //this will hold all of the objects in the correct format so that the front-end can add them to the state to be rendered
+      //this is what the data from the backend looks like
       //{titleArr, ingredientResults, directionResults, imgArr}
-      //{id, summary, title}
-      // {ingredients: [{name,image,amount:{metric:{value, unit}, us:{value, unit},}}]}
+      //directionResults -> {id, summary, title}
+      //ingredientResults -> {ingredients: [{name,image,amount:{metric:{value, unit}, us:{value, unit},}}]}
+      //titleArr, imgArr -> [string1, string2, string3...],
+      //an example response down below at bottom of page
       data.data.titleArr.forEach((el, idx) => {
+        //here we create a new object for each title
         let directions;
         if (data.data.newDirectionResults[idx]) {
+          //checking if directions for that title exist, cause accessing undefined.summary throws typeError
           directions = data.data.newDirectionResults[idx].summary;
         } else directions = '';
         const newObj = {
@@ -45,15 +51,8 @@ const Filter = (props) => {
       });
       props.addMeal(newObjArr);
     });
-
-    //response -> get back array of objects each with ingredients, directions, image, name populate
-    // props.addMeal(countSelection);
-
-    console.log(cuisineSelection);
-    console.log(ingredientSelection);
-    console.log(isPantryOnly);
-    console.log(countSelection);
   }
+  //there are lots and lots of cuisines the api can recognize! docs here: https://spoonacular.com/food-api/docs#Cuisines
   return (
     <div id='filter'>
       <h2>Find New Meals!</h2>
@@ -88,7 +87,7 @@ const Filter = (props) => {
           <option value='5'>5</option>
         </select>
       </label>
-      <button onClick={sendQueryParams}>Submit</button>
+      <button onClick={getRecipe}>Submit</button>
     </div>
   );
   ``;

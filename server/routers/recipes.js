@@ -8,19 +8,14 @@ recipeRouter.post('/find', (req, res) => {
   const imageArr = [];
 
   if (req.body.cuisine && req.body.ingredients) {
+    //apikey limited to 150 calls per day (3 calls per fetch request (1 for title/image, 1 for directions, 1 for ingredients))
     axios(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=895013782e374d7485078d4c5875ca51&cuisine=${req.body.cuisine}&includeIngredients=${req.body.ingredients}`
     )
-      //   .then((data) => {
-      //     console.log('something');
-      //     return data.json();
-      //   })
       .then(async (post) => {
-        // console.log(post.data);
-
         for (let i = 0; i < req.body.numberOfResults; i++) {
-          const { title, id, image } = post.data.results[i];
-          titleArr.push(title);
+          const { title, id, image } = post.data.results[i]; //destructuring data from api returned data (need to grab directions/ingredients from further api calls)
+          titleArr.push(title); //all must be in array because we are gonna do a promise.all to fetch all at the same time, and front end is expecting arrays
           idArr.push(id);
           imageArr.push(image);
         }
@@ -38,17 +33,21 @@ recipeRouter.post('/find', (req, res) => {
             );
           })
         );
-        if (ingredientResults[0]) {
-          newIngredientResults = ingredientResults.map(
-            (el) => el.data.ingredients
-          );
-        } else newIngredientResults = [];
-        if (directionResults[0]) {
-          newDirectionResults = directionResults.map((el) => el.data.summary);
-        } else newDirectionResults = [];
+        //below we are checking that ingredient/direction results exist before mapping (if they don't it will replace with an empty type of the appropriate data type )
+        newIngredientResults = ingredientResults.map((el) => {
+          if (el) {
+            return el.data.ingredients;
+          } else return [];
+        });
+
+        newDirectionResults = directionResults.map((el) => {
+          if (el) {
+            return el.data.summary;
+          } else {
+            return '';
+          }
+        });
         return { newIngredientResults, newDirectionResults };
-        //for loop to iterate thru first 2 results and limit responses to directions. from those first 5 ID titles
-        // console.log(ingredientResults, directionResults); //parse JSON object here
       })
       .then((data) => {
         const { newIngredientResults, newDirectionResults } = data;
