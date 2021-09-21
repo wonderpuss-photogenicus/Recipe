@@ -1,16 +1,16 @@
 import React from 'react';
 
 const Aside = (props) => {
+  //custom function that builds a series of html list elements, we pass pantry and cart items into this
   const orderedListBuilder = (item, idx) => {
     const newItem = (
       <li className='listItem' key={idx} index={idx}>
-        {' '}
         {item}
       </li>
     );
     return newItem;
   };
-
+  //this controls the value state for each of the inputs upon typing a letter into the input
   const useInput = (init) => {
     const [value, setValue] = React.useState(init);
     const onChange = (e) => {
