@@ -5,33 +5,31 @@ const User = require('../models/userModel');
 const databaseController = require('../controllers/databaseController');
 
 // Route for getting all users
+//not used in production version
 router.get('/', databaseController.getAllUsers, (req, res) =>
   res.status(200).json(res.locals.users)
 );
 
 // Getting one user
+//not used in production version
 router.get('/:id', findUserById, databaseController.getUser, (req, res) =>
-  res.status(200).json(res.user)
+  res.status(200).json(res.locals.user)
 );
 
 // Creating user
-
-router.post('/create', databaseController.createUser, (req, res) =>
-  res.status(200).json(res.newUser)
-);
+router.post('/create', databaseController.createUser);
 
 // Deleting one user
+//not used in production version
 router.delete('/:id', findUserById, databaseController.deleteUser, (req, res) =>
   res.status(200).json({ message: 'Deleted user' })
 );
 
-// AUTHENTICATE USER * STRETCH * NOT 100% WORKING
-
-router.post('/login', databaseController.authenticateUser, (req, res) =>
-  res.status(200).json(message)
-);
+//authenticates user on local db
+router.post('/login', databaseController.authenticateUser);
 
 // Get user middleware
+//not used in production version
 async function findUserById(req, res, next) {
   let user;
   try {

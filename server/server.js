@@ -16,24 +16,12 @@ const recipeRouter = require('./routers/recipes.js');
 //--m handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get('/', (req, res, next) =>
+//serves base index.html file that react app hangs off of
+app.get('/', (req, res) =>
   res.sendFile(path.resolve(__dirname, '../index.html'))
 );
-//define route handlers
-// app.use('/api', apiRouter);
 
-//handle requests for static files
-// app.use(express.static(path.resolve(__dirname, '../client')));
-
-// mongoose.connect('mongodb+srv://odonnelm1:<3mongooses>@cluster0.ywbh1.mongodb.net/recipeDB?retryWrites=true&w=majority'); //not 100% sure if this should be connected to database or API link
-// mongoose.connection.once('open', () => {
-//   console.log('Connected to Database');
-// });
-
-app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-//handle requests for static files
+//handles styles for our produced stylesheets and for the ReactGridLayout which has its own style sheets
 app.use(
   '/client/stylesheets',
   express.static(path.resolve(__dirname, '../client', 'stylesheets'))
@@ -42,9 +30,9 @@ app.use(
   '/node_modules',
   express.static(path.resolve(__dirname, '../node_modules'))
 );
-app.use('/users', usersRouter);
 
-//define route handlers
+//custom routers
+app.use('/users', usersRouter);
 app.use('/recipes', recipeRouter);
 
 // catch-all route handler for any requests to an unknown route
@@ -70,18 +58,8 @@ app.use((err, req, res, next) => {
 });
 
 //start server
-
-// goes into router file
-// const recipeRouter = express.Router();
-// app.use('/recipe', recipeRouter); //connects to overall recipe app - named Recipe-Dev here for now
-
-// recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {
-//     if (res.locals.recipe) {return res.status(200).json({...res.locals.recipe});}
-//     else {return res.status(400).send('Could not find recipe.');}
-//   });
-
 app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}...`);
+  console.log(`Server listening on port: ${PORT} :)`);
 });
 
 module.exports = app;
