@@ -1,7 +1,7 @@
 // hello world
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
+const User = require('../models/Models');
 const databaseController = require('../controllers/databaseController');
 
 // Route for getting all users
