@@ -1,15 +1,15 @@
 const path = require('path');
 const express = require('express');
 const usersRouter = require('./routers/users');
-
+// const Model = require('./models/userModel.js');
 const app = express();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
 const PORT = 3000;
 
-mongoose.connect('mongodb://localhost/users');
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Database'));
+// mongoose.connect('mongodb://localhost/users');
+// const db = mongoose.connection;
+// db.on('error', (error) => console.error(error));
+// db.once('open', () => console.log('Connected to Database'));
 
 const recipeRouter = require('./routers/recipes.js');
 
@@ -39,6 +39,7 @@ app.use('/recipes', recipeRouter);
 app.use((req, res) =>
   res.status(404).send("This is not the recipe you're looking for...")
 );
+
 
 /**
  * express error handler

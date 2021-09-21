@@ -2,6 +2,8 @@ const express = require('express');
 const recipeController = require('../controllers/recipeController.js');
 const axios = require('axios');
 const recipeRouter = express.Router();
+
+
 recipeRouter.post('/find', (req, res) => {
   const titleArr = [];
   const idArr = [];
@@ -10,7 +12,7 @@ recipeRouter.post('/find', (req, res) => {
   if (req.body.cuisine && req.body.ingredients) {
     //apikey limited to 150 calls per day (3 calls per fetch request (1 for title/image, 1 for directions, 1 for ingredients))
     axios(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=895013782e374d7485078d4c5875ca51&cuisine=${req.body.cuisine}&includeIngredients=${req.body.ingredients}`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=895013782e374d7485078d4c5875ca51&cuisine=${req.body.cuisine}&includeIngredients=${req.body.ingredients}&addRecipeInformation=true`
     )
       .then(async (post) => {
         for (let i = 0; i < req.body.numberOfResults; i++) {
