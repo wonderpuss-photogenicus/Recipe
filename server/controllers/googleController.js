@@ -6,7 +6,7 @@ const googleScopes = ['https://www.googleapis.com/auth/userinfo.email', 'https:/
 const reDirectUrl = 'http://localhost:3000/login';
 const { google } = require('googleapis');
 
-const User = require('../models/userModel');
+const { User } = require('../models/Models');
 // const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
@@ -19,7 +19,6 @@ const oauth2Client = new google.auth.OAuth2(
     reDirectUrl,
 );
 
-
 const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: googleScopes,
@@ -27,7 +26,6 @@ const url = oauth2Client.generateAuthUrl({
     redirect_uri: reDirectUrl,
     response_type: 'code',
 });
-
 
 // all this does it redirect user to login page
 googleController.login = (req, res, next) => {

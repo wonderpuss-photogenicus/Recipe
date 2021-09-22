@@ -8,12 +8,10 @@ const app = express();
 // const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
 const PORT = 3000;
 const googleController = require('./controllers/googleController')
-
 // mongoose.connect('mongodb://localhost/users');
 // const db = mongoose.connection;
 // db.on('error', (error) => console.error(error));
 // db.once('open', () => console.log('Connected to Database'));
-
 const recipeRouter = require('./routers/recipes.js');
 
 //--m handle parsing request body
@@ -23,24 +21,31 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) =>
   res.sendFile(path.resolve(__dirname, '../index.html'))
 );
-app.get(
-  '/test', 
-  recipeController.getRecipe, 
-  (req,res)=>{
-    console.log('succesfully got the data')
-    res.send('yay')
-  }
-)
+
+
+//used to save all data from API into the database
+
+// app.get(
+//   '/test', 
+//   recipeController.getAllRecipesToDB, 
+//   (req,res)=>{
+//     console.log('succesfully got the data')
+//     res.send('yay')
+//   }
+// )
 
 //handles styles for our produced stylesheets and for the ReactGridLayout which has its own style sheets
 app.use(
   '/client/stylesheets',
   express.static(path.resolve(__dirname, '../client', 'stylesheets'))
 );
+
 app.use(
   '/node_modules',
   express.static(path.resolve(__dirname, '../node_modules'))
 );
+
+app.use('/recipes', recipeRouter);
 
 app.use('/login', googleOauth);
 
