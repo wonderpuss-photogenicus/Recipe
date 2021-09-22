@@ -34,20 +34,26 @@ const App = () => {
   //state that keeps track of meals that are faved, dummydata of 1
   const [favMeals, setFavMeals] = useState([
     {
-      name: "Krabby Patty",
+      id: "52768",
+      name: "Apple Frangipan Tart",
+      cuisine: "British",
+      imgURL:
+        "https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg",
       ingredients: [
-        //must be an array
-        "buns",
-        "pickles",
-        "patty",
-        "ketchup",
-        "mustard",
-        "tomato",
-        "lettuce",
-        "and most importantly love :)",
+        "onions",
+        "bread",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
+        "ramen",
       ],
-      directions: "make a krabby patty :)", //must be a string, api sends as a string
-      img: "https://i.imgur.com/mSVtgYm.jpg",
     },
   ]);
   //state for below 2 are for aside panel that monitor pantry and shopping cart, initialized with 2 dummy items in array
@@ -173,7 +179,7 @@ const App = () => {
         //key is important, it is related to the layout state and determines how the ReactGridLayout displays items
         <div id={idx.toString()} key={idx.toString()} className="no-drag">
           <MealCard //passing down state and functions
-            img={el.img}
+            img={el.imgURL}
             isFaved={isFaved}
             setFav={setFav}
             removeFav={removeFav}
