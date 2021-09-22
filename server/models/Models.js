@@ -33,8 +33,13 @@ const recipeSchema = new mongoose.Schema({
   measures: Array
 })
 
+const ingredientsSchema = new mongoose.Schema({
+  name: String,
+})
+
 const User = mongoose.model('User', userSchema);
 const Recipe = mongoose.model('Recipe', recipeSchema);
+const Ingredients = mongoose.model('Ingredients', ingredientsSchema);
 
-module.exports = {User, Recipe}
+module.exports = {User, Recipe, Ingredients}
 

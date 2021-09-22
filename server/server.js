@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const usersRouter = require("./routers/users");
 const recipeRouter = require("./routers/recipes.js");
+const recipeController = require("./controllers/recipeController");
 
 const app = express();
 const PORT = 3000;
@@ -27,6 +28,8 @@ app.use(
 );
 
 app.use("/login", usersRouter);
+app.use("/users", usersRouter);
+app.use('/recipes', recipeRouter);
 
 //used to save all data from API into the database
 // app.get(
