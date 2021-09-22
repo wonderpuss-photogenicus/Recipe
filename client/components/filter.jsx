@@ -17,14 +17,15 @@ const Filter = (props) => {
       ingredientSelection = ingredientString;
     }
     axios({
-      method: 'POST',
+      url: '/recipes/find',
+      method: 'GET',
       headers: { 'Content-type': 'application/json' },
       data: {
         cuisine: cuisineSelection,
         ingredients: ingredientSelection,
         numberOfResults: countSelection,
       },
-      url: '/recipes/find',
+      
     }).then((data) => {
       console.log(data);
       //this will hold all of the objects in the correct format so that the front-end can add them to the state to be rendered

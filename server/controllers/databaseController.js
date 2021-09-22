@@ -19,8 +19,8 @@ const databaseController = {};
 //   next();
 // };
 
-// Creating user
-// uses bcypt to create a new password for new user and saves in local mongoDB
+// // Creating user
+// // uses bcypt to create a new password for new user and saves in local mongoDB
 databaseController.createUser = async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
