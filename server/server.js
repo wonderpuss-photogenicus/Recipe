@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const usersRouter = require('./routers/users');
+const recipeController = require('./controllers/recipeController')
 // const Model = require('./models/userModel.js');
 const app = express();
 // const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
@@ -20,6 +21,14 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) =>
   res.sendFile(path.resolve(__dirname, '../index.html'))
 );
+app.get(
+  '/test', 
+  recipeController.getRecipe, 
+  (req,res)=>{
+    console.log('succesfully got the data')
+    res.send('yay')
+  }
+)
 
 //handles styles for our produced stylesheets and for the ReactGridLayout which has its own style sheets
 app.use(

@@ -1,12 +1,100 @@
-const models = require('../models/Models.js');
+const {Recipe} = require('../models/Models.js');
 //none of this is really used in the production version...
+const axios = require('axios');
 const recipeController = {};
+const fs = require('fs');
+const path = require('path');
 
 recipeController.getRecipe = (req, res, next) => {
+  const alphabetString = 'abcdefghijklmnopqrstuvwxyz';
+  const array = [];
+    for (let i = 0; i < alphabetString.length; i++) {
+      array.push(axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${alphabetString[i]}`));
+    }
   //we will have to call for a-z API calls
     //once we recieve the result, we would have to loop through an array (it should be object with a key meal and value of array)
       //we would do deconstruction,
       //and db.create to add each meal's recipe in the database
+  // for (let i = 0; i < alphabetString.length; i++) {
+  //   array.push(axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${alphabetString[i]}`));
+  // }
+  // { meals: [ [Object], [Object], [Object], [Object] ] 
+  // const post = async () => {
+    
+  //   const mealArr = [];
+  //   for(let i = 0; i < array.length; i++) {
+  //     const { meals } = array[i];
+  //     // meals = array [ {recipe} , recipe , recipe]
+  //     // `strIngredient${i}` : `strMeasure${i}`  1 - 20
+      
+  //     meals.forEach( async (meal) =>{
+  //       const temp = [];
+        
+  //       for(let j = 1; j <= 20; j++){
+  //         const ingredient = meal[`strIngredient${j}`];
+  //         const measure = meal[`strMeasure${j}`];
+  //         if(ingredient) {
+  //           temp.push({ [`${ingredient}`] : measure});
+  //         }
+  //       }
+        
+  //       const { idMeal, strMeal, strArea, strInstructions, strMealThumb } = meal;
+        
+  //       const addItem = await Recipe.create({
+  //         id: idMeal, 
+  //         name: strMeal, 
+  //         cuisine: strArea,
+  //         instruction: strInstructions,
+  //         imgURL: strMealThumb,
+  //         ingredients: temp,
+  //       })
+  //     })
+  //   }
+  //   next();
+  // }
+  // post();
+  Promise.all(array)
+  .then(results => {
+    // console.log(results[0].data)
+    const mealArr = [];
+    for(let i = 0; i < results.length; i++) {
+      const { meals } = results[i].data;
+      // meals = array [ {recipe} , recipe , recipe]
+      // `strIngredient${i}` : `strMeasure${i}`  1 - 20
+      if(meals != null){
+        meals.forEach(meal=>{
+          const temp = [];
+          for(let j = 1; j <= 20; j++){
+            const ingredient = meal[`strIngredient${j}`];
+            const measure = meal[`strMeasure${j}`];
+            if(ingredient) {
+              temp.push({ [`${ingredient}`] : measure});
+            }
+          }
+          const { idMeal, strMeal, strArea, strInstructions, strMealThumb } = meal;
+          const body = 
+                {
+                  id: idMeal, 
+                  name: strMeal, 
+                  cuisine: strArea,
+                  instruction: strInstructions,
+                  imgURL: strMealThumb,
+                  ingredients: temp,
+                };
+          // fs.appendFileSync(path.join(__dirname, 'test.json'), `${JSON.stringify(body)};`)
+          mealArr.push(body);
+        })
+      }
+    }
+    
+    res.locals.mealArr = mealArr;
+  })
+  .then(()=>{
+    Recipe.create(res.locals.mealArr)
+    .then((result)=>next())
+    .catch(err=>console.log(err))
+  })
+  .catch(err => next(err));
 };
 
 recipeController.findMeals = (req, res, next) => {
