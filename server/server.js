@@ -1,11 +1,13 @@
 const path = require('path');
 const express = require('express');
-const usersRouter = require('./routers/users');
+const usersRouter = require('./routers/users')
+const googleOauth = require('./routers/googleOauth');
 const recipeController = require('./controllers/recipeController')
 // const Model = require('./models/userModel.js');
 const app = express();
 // const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
 const PORT = 3000;
+const googleController = require('./controllers/googleController')
 
 // mongoose.connect('mongodb://localhost/users');
 // const db = mongoose.connection;
@@ -40,9 +42,17 @@ app.use(
   express.static(path.resolve(__dirname, '../node_modules'))
 );
 
-//custom routers
-app.use('/users', usersRouter);
-app.use('/recipes', recipeRouter);
+app.use('/login', googleOauth);
+
+app.get('/login', googleController.login, googleController.getCode, googleController.retrieveToken, googleController.verifyUser, (req, res, err) =>{
+  // console.log('req body: ', req);
+  console.log('inside googleOauth .get/')
+  console.log('res.locals.user is ', res.locals.user);
+  return res.status(200).json({body:'hello'})
+});
+
+//define route handlers
+// app.use('/api', apiRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) =>
