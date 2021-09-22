@@ -1,10 +1,11 @@
 const path = require('path');
 const express = require('express');
 const usersRouter = require('./routers/users')
-
+const googleOauth = require('./routers/googleOauth');
 const app = express();
 const mongoose = require('mongoose');
 const PORT = 3000;
+const googleController = require('./controllers/googleController')
 
 mongoose.connect('mongodb://localhost/users');
 const db = mongoose.connection;
@@ -15,11 +16,11 @@ db.once('open', () => console.log('Connected to Database'));
 // const apiRouter = require('./routes/api');
 
 //--m handle parsing request body
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.get('/', (req, res, next) =>
-  res.sendFile(path.resolve(__dirname, '../index.html'))
-);
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.get('/', (req, res, next) =>
+//   res.sendFile(path.resolve(__dirname, '../index.html'))
+// );
 //define route handlers
 // app.use('/api', apiRouter);
 
@@ -32,10 +33,10 @@ app.get('/', (req, res, next) =>
 // });
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 
-//handle requests for static files
+// handle requests for static files
 app.use(
   '/client/stylesheets',
   express.static(path.resolve(__dirname, '../client', 'stylesheets'))
@@ -45,6 +46,15 @@ app.use(
   express.static(path.resolve(__dirname, '../node_modules'))
 );
 app.use('/users', usersRouter)
+
+app.use('/login', googleOauth);
+
+app.get('/login', googleController.login, googleController.getCode, googleController.retrieveToken, googleController.verifyUser, (req, res, err) =>{
+  // console.log('req body: ', req);
+  console.log('inside googleOauth .get/')
+  console.log('res.locals.user is ', res.locals.user);
+  return res.status(200).json({body:'hello'})
+});
 
 //define route handlers
 // app.use('/api', apiRouter);
