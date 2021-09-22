@@ -29,7 +29,8 @@ databaseController.createUser = async (req, res, next) => {
       password: hashedPassword,
     });
     const newUser = await user.save();
-    res.send("Send to their page"); //frontend expects this message to validate user has been created
+    res.send("Send to their page");
+    next(); //frontend expects this message to validate user has been created
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

@@ -26,7 +26,7 @@ const googleController = require("../controllers/googleController");
 
 // // Creating user
 routerUsers.post("/create", databaseController.createUser, (req, res) =>
-  res.status(200).json(res.newUser)
+  res.status(200).json(res.locals.newUser)
 );
 
 //authenticates user on local db

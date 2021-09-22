@@ -1,15 +1,14 @@
-const express = require('express');
-const recipeController = require('../controllers/recipeController.js');
-const axios = require('axios');
-const router = express.Router();
+const express = require("express");
+const recipeController = require("../controllers/recipeController.js");
+const axios = require("axios");
+const recipeRouter = express.Router();
 
-
-router.get('/find', recipeController.getRecipe, (req, res) => {
-  console.log('filtered recipes')
-  res.json(res.locals.recipes)
+recipeRouter.get("/find", recipeController.getRecipe, (req, res) => {
+  console.log("filtered recipes");
+  res.json(res.locals.recipes);
 });
 
-
+module.exports = recipeRouter;
 // previous stuff
 
 // recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {

@@ -4,10 +4,7 @@ const usersRouter = require("./routers/users");
 const recipeRouter = require("./routers/recipes.js");
 const recipeController = require("./controllers/recipeController");
 
-// const Model = require('./models/userModel.js');
 const app = express();
-
-// const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
 const PORT = 3000;
 
 //--m handle parsing request body
@@ -30,6 +27,7 @@ app.use(
   express.static(path.resolve(__dirname, "../node_modules"))
 );
 
+app.use("/login", usersRouter);
 app.use("/users", usersRouter);
 app.use('/recipes', recipeRouter);
 
