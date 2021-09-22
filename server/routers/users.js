@@ -10,30 +10,32 @@ router.get('/', databaseController.getAllUsers, (req, res) =>
   res.status(200).json(res.locals.users)
 );
 
-// // Getting one user
+// // // Getting one user
 router.get('/:id',
   findUserById,
   databaseController.getUser,
   (req, res) => res.status(200).json(res.user)
 )
 
-// // Creating user
+// // // Creating user
 
 router.post('/create', databaseController.createUser, (req, res) =>
   res.status(200).json(res.newUser)
 );
 
-// Creating user
-router.post('/create', databaseController.createUser);
+// // Creating user
+// router.post('/create', databaseController.createUser);
 
-// Deleting one user
-//not used in production version
-router.delete('/:id', findUserById, databaseController.deleteUser, (req, res) =>
-  res.status(200).json({ message: 'Deleted user' })
-);
+// // Deleting one user
+// //not used in production version
+// router.delete('/:id', findUserById, databaseController.deleteUser, (req, res) =>
+//   res.status(200).json({ message: 'Deleted user' })
+// );
 
-//authenticates user on local db
-router.post('/login', databaseController.authenticateUser);
+// //authenticates user on local db
+router.post('/login', databaseController.authenticateUser, (req, res) => {
+  return res.redirect('http://localhost:8080/')
+});
 
 // Get user middleware
 //not used in production version

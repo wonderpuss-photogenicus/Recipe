@@ -1,13 +1,13 @@
 const { User } = require('../models/Models');
 const bcrypt = require('bcryptjs');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // mongoose.connect('mongodb://localhost/users');
 
 const databaseController = {};
 
-// Route for getting all users
-//not really used in the production version of the app
+// // Route for getting all users
+// //not really used in the production version of the app
 databaseController.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -18,14 +18,14 @@ databaseController.getAllUsers = async (req, res, next) => {
   }
 };
 
-// Getting one user
-//also not used  in production version
+// // Getting one user
+// //also not used  in production version
 databaseController.getUser = (req, res, next) => {
   next();
 };
 
-// Creating user
-// uses bcypt to create a new password for new user and saves in local mongoDB
+// // Creating user
+// // uses bcypt to create a new password for new user and saves in local mongoDB
 databaseController.createUser = async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -40,16 +40,16 @@ databaseController.createUser = async (req, res, next) => {
   }
 };
 
-// Deleting one user
-//not used in production version
-databaseController.deleteUser = async (req, res, next) => {
-  try {
-    await res.user.remove();
-    next();
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+// // Deleting one user
+// //not used in production version
+// databaseController.deleteUser = async (req, res, next) => {
+//   try {
+//     await res.user.remove();
+//     next();
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 
 //verifies user info is correct before rendering app
 databaseController.authenticateUser = async (req, res, next) => {

@@ -23,32 +23,30 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) =>
   res.sendFile(path.resolve(__dirname, '../index.html'))
 );
-app.get(
-  '/test', 
-  recipeController.getRecipe, 
-  (req,res)=>{
-    console.log('succesfully got the data')
-    res.send('yay')
-  }
-)
+// app.get(
+//   '/test', 
+//   recipeController.getRecipe, 
+//   (req,res)=>{
+//     console.log('succesfully got the data')
+//     res.send('yay')
+//   }
+// )
 
 //handles styles for our produced stylesheets and for the ReactGridLayout which has its own style sheets
-app.use(
-  '/client/stylesheets',
-  express.static(path.resolve(__dirname, '../client', 'stylesheets'))
-);
-app.use(
-  '/node_modules',
-  express.static(path.resolve(__dirname, '../node_modules'))
-);
+// app.use(
+//   '/client/stylesheets',
+//   express.static(path.resolve(__dirname, '../client', 'stylesheets'))
+// );
+// app.use(
+//   '/node_modules',
+//   express.static(path.resolve(__dirname, '../node_modules'))
+// );
 
-app.use('/login', googleOauth);
 
 app.get('/login', googleController.login, googleController.getCode, googleController.retrieveToken, googleController.verifyUser, (req, res, err) =>{
   // console.log('req body: ', req);
   console.log('inside googleOauth .get/')
-  console.log('res.locals.user is ', res.locals.user);
-  return res.status(200).json({body:'hello'})
+  return res.status(200).send('Send to their page');
 });
 
 //define route handlers
@@ -58,7 +56,6 @@ app.get('/login', googleController.login, googleController.getCode, googleContro
 app.use((req, res) =>
   res.status(404).send("This is not the recipe you're looking for...")
 );
-
 
 /**
  * express error handler
