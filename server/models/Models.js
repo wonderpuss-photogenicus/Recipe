@@ -30,6 +30,7 @@ const recipeSchema = new mongoose.Schema({
   instructions: String,
   imgURL: String,
   ingredients: Array,
+  measures: Array
 })
 
 const User = mongoose.model('User', userSchema);
