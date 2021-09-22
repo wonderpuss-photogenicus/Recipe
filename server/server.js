@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const usersRouter = require("./routers/users");
 const recipeRouter = require("./routers/recipes.js");
+const recipeController = require("./controllers/recipeController");
 
 // const Model = require('./models/userModel.js');
 const app = express();
@@ -30,6 +31,7 @@ app.use(
 );
 
 app.use("/users", usersRouter);
+app.use('/recipes', recipeRouter);
 
 //used to save all data from API into the database
 // app.get(
