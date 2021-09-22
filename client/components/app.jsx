@@ -1,111 +1,116 @@
-import React from 'react';
+import React, { useState } from "react";
 // import MealCard from './mealCard.jsx';
 // import GridLayout from 'react-grid-layout';
 // import ReactDom from 'react-dom';
-import NavBar from './NavBar.jsx';
-import Aside from './Aside.jsx';
-import MealDisplay from './MealDisplay.jsx';
-import GridLayout from 'react-grid-layout';
-import MealCard from './MealCard.jsx';
-import Filter from './Filter.jsx';
-import FavsDisplay from './FavsDisplay.jsx';
-import UserLogin from './UserLogin.jsx';
-import axios from 'axios';
+import NavBar from "./NavBar.jsx";
+import Aside from "./Aside.jsx";
+import MealDisplay from "./MealDisplay.jsx";
+import GridLayout from "react-grid-layout";
+import MealCard from "./MealCard.jsx";
+import Filter from "./Filter.jsx";
+import FavsDisplay from "./FavsDisplay.jsx";
+import UserLogin from "./UserLogin.jsx";
+import axios from "axios";
+
+const initialState = {
+  _id: { $oid: "614b4942654d068d307f5226" },
+  username: " ",
+  pantry: [],
+  shoppingList: [],
+  favoriteList: [],
+};
+
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   //state determines whether or not each parent component is rendered (fav/mealDisplay)
-  const [masterRendererArray, setMasterRendererArray] = React.useState([
-    true,
-    true,
-  ]);
-  //state determines whether each mealcard is displayed for each child component (3 dummy values because api quota is low)
-  const [rendererArray, setRendererArray] = React.useState([true, true, true]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [masterRendererArray, setMasterRendererArray] = useState([true, true]);
+  const [rendererArray, setRendererArray] = useState([true, true, true]); //state determines whether each mealcard is displayed for each child component (3 dummy values because api quota is low)
   //similar to above, determines layout of child mealcard components
-  const [layout, setLayout] = React.useState([
-    { i: '0', x: 0, y: 0, w: 4, h: 12 },
-    { i: '1', x: 4, y: 0, w: 4, h: 12 },
-    { i: '2', x: 8, y: 0, w: 4, h: 12 },
+  const [layout, setLayout] = useState([
+    { i: "0", x: 0, y: 0, w: 4, h: 12 },
+    { i: "1", x: 4, y: 0, w: 4, h: 12 },
+    { i: "2", x: 8, y: 0, w: 4, h: 12 },
   ]);
   //state that keeps track of meals that are faved, dummydata of 1
-  const [favMeals, setFavMeals] = React.useState([
+  const [favMeals, setFavMeals] = useState([
     {
-      name: 'Krabby Patty',
+      name: "Krabby Patty",
       ingredients: [
         //must be an array
-        'buns',
-        'pickles',
-        'patty',
-        'ketchup',
-        'mustard',
-        'tomato',
-        'lettuce',
-        'and most importantly love :)',
+        "buns",
+        "pickles",
+        "patty",
+        "ketchup",
+        "mustard",
+        "tomato",
+        "lettuce",
+        "and most importantly love :)",
       ],
-      directions: 'make a krabby patty :)', //must be a string, api sends as a string
-      img: 'https://i.imgur.com/mSVtgYm.jpg',
+      directions: "make a krabby patty :)", //must be a string, api sends as a string
+      img: "https://i.imgur.com/mSVtgYm.jpg",
     },
   ]);
   //state for below 2 are for aside panel that monitor pantry and shopping cart, initialized with 2 dummy items in array
-  const [pantryItems, setPantryItems] = React.useState(['onions', 'eggs']);
-  const [cartItems, setCartItems] = React.useState(['fruit', 'sauce']);
+  const [pantryItems, setPantryItems] = useState(initialState["pantry"]);
+  const [cartItems, setCartItems] = useState(initialState["shoppingList"]);
   //test data
   const dummyList = [
-    'onions',
-    'bread',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
-    'ramen',
+    "onions",
+    "bread",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
+    "ramen",
   ];
-  const dummyDirections = 'do stuff';
+  const dummyDirections = "do stuff";
   //state that hold meals to be rendered in the mealdisplay parent component
-  const [meals, setMeals] = React.useState([
+  const [meals, setMeals] = useState([
     {
       name: "Mama's Lasagna",
       ingredients: dummyList,
       directions: dummyDirections,
-      img: 'https://i.imgur.com/mSVtgYm.jpg',
+      img: "https://i.imgur.com/mSVtgYm.jpg",
     },
     {
       name: "Papa's Lasagna",
       ingredients: dummyList,
       directions: dummyDirections,
-      img: 'https://i.imgur.com/mSVtgYm.jpg',
+      img: "https://i.imgur.com/mSVtgYm.jpg",
     },
     {
-      name: 'Krabby Patty',
+      name: "Krabby Patty",
       ingredients: [
-        'buns',
-        'pickles',
-        'patty',
-        'ketchup',
-        'mustard',
-        'tomato',
-        'lettuce',
-        'and most importantly love :)',
+        "buns",
+        "pickles",
+        "patty",
+        "ketchup",
+        "mustard",
+        "tomato",
+        "lettuce",
+        "and most importantly love :)",
       ],
-      directions: 'make a krabby patty :)',
-      img: 'https://i.imgur.com/mSVtgYm.jpg',
+      directions: "make a krabby patty :)",
+      img: "https://i.imgur.com/mSVtgYm.jpg",
     },
   ]);
   //custom function to login user
   function loginUser(event) {
     axios({
-      method: 'POST',
-      url: '/users/login',
+      method: "POST",
+      url: "/login/login",
       data: {
         username: event.target.parentNode.children[2].value, //username from input
         password: event.target.parentNode.children[3].value, //password from input
       },
     }).then((response) => {
-      if (response.data === 'Send to their page') {
+      if (response.data === "Send to their page") {
         //this is the expected response from backend upon successful login
         setIsLoggedIn(true);
       }
@@ -114,19 +119,23 @@ const App = () => {
   //custom function to create a new user and then log in the user, almost same as above but different url and alerts chrome with success message
   function createUser(event) {
     axios({
-      method: 'POST',
-      url: '/users/create',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      url: "/users/create",
+      headers: { "Content-Type": "application/json" },
       data: {
         username: event.target.parentNode.children[2].value,
         password: event.target.parentNode.children[3].value,
       },
     }).then((data) => {
-      if (data.data === 'Send to their page') {
-        alert('New User Created');
+      if (data.data === "Send to their page") {
+        alert("New User Created");
         setIsLoggedIn(true);
       }
     });
+  }
+
+  function loginGoogle(event) {
+    console.log("SignIn with google");
   }
   //custom function to add an item to the favMeals state when <3 button pressed on top left corner of a meal card
   function setFav(event) {
@@ -162,7 +171,7 @@ const App = () => {
         favMeals.filter((filterEl) => filterEl.name === el.name).length > 0; //checking on if the meal is saved in fav or not
       mealArray.push(
         //key is important, it is related to the layout state and determines how the ReactGridLayout displays items
-        <div id={idx.toString()} key={idx.toString()} className='no-drag'>
+        <div id={idx.toString()} key={idx.toString()} className="no-drag">
           <MealCard //passing down state and functions
             img={el.img}
             isFaved={isFaved}
@@ -172,7 +181,7 @@ const App = () => {
             setCartItems={setCartItems}
             unmount={unmount}
             name={el.name}
-            directions={el.directions || 'No directions found :('} //lots of time the api returns no instructions so this is a catch for that
+            directions={el.directions || "No directions found :("} //lots of time the api returns no instructions so this is a catch for that
             ingredients={el.ingredients}
           />
         </div>
@@ -236,12 +245,12 @@ const App = () => {
   if (isLoggedIn) {
     //checking if user is logged in or not
     return (
-      <div id='app'>
+      <div id="app">
         <NavBar //navbar contains functionality to render top level components (mealDisplay, favDisplay)
           setMasterRendererArray={setMasterRendererArray}
           masterRendererArray={masterRendererArray}
         />
-        <div id='asideAndDisplayHolder'>
+        <div id="asideAndDisplayHolder">
           <Aside
             pantryItems={pantryItems}
             cartItems={cartItems}
@@ -251,22 +260,22 @@ const App = () => {
           <GridLayout //gridLayout is from react-grid-layout https://github.com/react-grid-layout/react-grid-layout, component that allows clickability and draggability
             measureBeforeMount={true} //this was me trying to get stuff to work so the top-level components wouldnt appear teeny tiny when first mounted... didn't work :( -Adam
             autoSize={true} //same as above
-            className='layout' //needed syntax
+            className="layout" //needed syntax
             layout={[
               //layout is i -> key of component, x-> initial x-coordinate, y-> initial y-coordinate, w-> initial width, h->initial height
-              { i: 'a', x: 0, y: 0, w: 20, h: 13 },
-              { i: 'b', x: 0, y: 13, w: 20, h: 13 },
-              { i: 'c', x: 0, y: 26, w: 20, h: 13 },
-              { i: 'd', x: 0, y: 39, w: 20, h: 13 },
+              { i: "a", x: 0, y: 0, w: 20, h: 13 },
+              { i: "b", x: 0, y: 13, w: 20, h: 13 },
+              { i: "c", x: 0, y: 26, w: 20, h: 13 },
+              { i: "d", x: 0, y: 39, w: 20, h: 13 },
             ]}
             cols={20} //these determine how granular you want scaling/resizing, also controls initial size/placing of component
             rowHeight={30}
             width={1200}
-            draggableCancel='.no-drag' //this controls inner nesting of react-grid-layout components, so we can drag inner components (which must have this specified className) without dragging parent components
+            draggableCancel=".no-drag" //this controls inner nesting of react-grid-layout components, so we can drag inner components (which must have this specified className) without dragging parent components
           >
             {masterRendererArray[0] && ( //controlling if parent level should render or not
               /*GRIDLAYOUT CAN ONLY DIRECTLY RENDER divs, IT CANNOT RENDER CUSTOM COMPONENTS*/
-              <div id='mealDisplay' key='a'>
+              <div id="mealDisplay" key="a">
                 <Filter addMeal={addMeal} pantryItems={pantryItems} />
                 <MealDisplay
                   mealArray={mealArray}
@@ -277,7 +286,7 @@ const App = () => {
               </div>
             )}
             {masterRendererArray[1] && (
-              <div key='b' id='favDisplay'>
+              <div key="b" id="favDisplay">
                 <FavsDisplay
                   setFav={setFav}
                   removeFav={removeFav}
@@ -294,7 +303,13 @@ const App = () => {
     );
   } else {
     //if user is not logged in, show the userlogin page :)
-    return <UserLogin loginUser={loginUser} createUser={createUser} />;
+    return (
+      <UserLogin
+        loginUser={loginUser}
+        createUser={createUser}
+        loginGoogle={loginGoogle}
+      />
+    );
   }
 };
 

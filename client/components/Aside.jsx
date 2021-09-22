@@ -26,7 +26,6 @@ const Aside = (props) => {
   return (
     <aside className='listContainer' id='aside'>
       <h3>My Items</h3>
-
       <h4>Pantry</h4>
       <ol className='pantryList'>
         {props.pantryItems.map((item, idx) => orderedListBuilder(item, idx))}
@@ -46,7 +45,6 @@ const Aside = (props) => {
           Add to List
         </button>
       </div>
-
       <h4>Shopping List</h4>
       <ol className='cartList'>
         {props.cartItems.map((item, idx) => orderedListBuilder(item, idx))}
