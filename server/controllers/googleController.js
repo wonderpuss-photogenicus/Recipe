@@ -19,7 +19,6 @@ const oauth2Client = new google.auth.OAuth2(
     reDirectUrl,
 );
 
-
 const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: googleScopes,
@@ -27,7 +26,6 @@ const url = oauth2Client.generateAuthUrl({
     redirect_uri: reDirectUrl,
     response_type: 'code',
 });
-
 
 // all this does it redirect user to login page
 googleController.login = (req, res, next) => {

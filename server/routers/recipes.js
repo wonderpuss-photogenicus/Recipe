@@ -1,9 +1,18 @@
 const express = require('express');
 const recipeController = require('../controllers/recipeController.js');
 const axios = require('axios');
-const recipeRouter = express.Router();
+const router = express.Router();
 
-//
+
+router.get('/find', recipeController.getRecipe, (req, res) => {
+  console.log('filtered recipes')
+  res.json(res.locals.recipes)
+});
+
+module.exports = router;
+
+// previous stuff
+
 // recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {
 //     if (res.params.recipe) {
 //         fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a&cuisine=${req.body.cuisine}&includeIngredients=${req.body.ingredients}`) 
@@ -55,7 +64,6 @@ const recipeRouter = express.Router();
 //             return el.data.ingredients;
 //           } else return [];
 //         });
-
 //         newDirectionResults = directionResults.map((el) => {
 //           if (el) {
 //             return el.data.summary;
@@ -79,7 +87,6 @@ const recipeRouter = express.Router();
 //   }
 // });
 
-module.exports = recipeRouter;
 //example fetch request that returns JSON string with valid API key:
 //https://api.spoonacular.com/recipes/716429/information?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a&includeNutrition=true
 //https://api.spoonacular.com/recipes/findByIngredients?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a&ingredients='pasta'

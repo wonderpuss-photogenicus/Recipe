@@ -1,7 +1,7 @@
 // hello world
 const express = require('express');
 const router = express.Router();
-const User = require('../models/Models');
+const {User} = require('../models/Models');
 const databaseController = require('../controllers/databaseController');
 
 // Route for getting all users
@@ -23,19 +23,8 @@ router.post('/create', databaseController.createUser, (req, res) =>
   res.status(200).json(res.newUser)
 );
 
-// // Creating user
-// router.post('/create', databaseController.createUser);
-
-// // Deleting one user
-// //not used in production version
-// router.delete('/:id', findUserById, databaseController.deleteUser, (req, res) =>
-//   res.status(200).json({ message: 'Deleted user' })
-// );
-
-// //authenticates user on local db
-router.post('/login', databaseController.authenticateUser, (req, res) => {
-  return res.redirect('http://localhost:8080/')
-});
+//authenticates user on local db
+router.post('/login', databaseController.authenticateUser);
 
 // Get user middleware
 //not used in production version

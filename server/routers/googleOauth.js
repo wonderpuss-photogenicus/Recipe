@@ -4,3 +4,5 @@ const router = express.Router();
 
 const googleController = require('../controllers/databaseController.js');
 
+module.exports = router;
+
