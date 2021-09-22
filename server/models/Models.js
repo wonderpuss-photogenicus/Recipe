@@ -24,14 +24,12 @@ const userSchema = new mongoose.Schema({
 })
 
 const recipeSchema = new mongoose.Schema({
-  idMeal: {
-    type: String, unique: true
-  },
-  strMeal: String,
-  strArea: String,
-  strInstructions: String,
-  strMealThumb: String,
-  strIngredients: Array,
+  id: String,
+  name: String,
+  cuisine: String,
+  instructions: String,
+  imgURL: String,
+  ingredients: Array,
 })
 
 const User = mongoose.model('User', userSchema);
