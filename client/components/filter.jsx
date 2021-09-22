@@ -27,7 +27,8 @@ const Filter = (props) => {
       url: '/recipes/find',
     }).then((data) => {
       console.log(data);
-      const newObjArr = []; //this will hold all of the objects in the correct format so that the front-end can add them to the state to be rendered
+      //this will hold all of the objects in the correct format so that the front-end can add them to the state to be rendered
+      const newObjArr = []; 
       //this is what the data from the backend looks like
       //{titleArr, ingredientResults, directionResults, imgArr}
       //directionResults -> {id, summary, title}
