@@ -1,6 +1,7 @@
 import React from 'react';
 
 const NavBar = (props) => {
+  //function that sets state on parent component App about which top-level components to render
   function changeMasterRendererArray(num) {
     const newArray = [...props.masterRendererArray];
     newArray[num] = !newArray[num];
@@ -14,7 +15,7 @@ const NavBar = (props) => {
             changeMasterRendererArray(0);
           }}
         >
-          Add Meal +{' '}
+          Find New Meals
         </button>
       </ul>
       <ul className='favMeal'>

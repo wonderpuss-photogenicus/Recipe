@@ -1,13 +1,13 @@
-
-const express = require('express')
-const router = express.Router()
-const User = require('../models/userModel')
-const databaseController = require('../controllers/databaseController')
+// hello world
+const express = require('express');
+const router = express.Router();
+const User = require('../models/Models');
+const databaseController = require('../controllers/databaseController');
 
 // Route for getting all users
-router.get('/',
-  databaseController.getAllUsers,
-  (req, res) => res.status(200).json(res.locals.users)
+//not used in production version
+router.get('/', databaseController.getAllUsers, (req, res) =>
+  res.status(200).json(res.locals.users)
 );
 
 // // Getting one user
@@ -23,37 +23,32 @@ router.post('/create', databaseController.createUser, (req, res) =>
   res.status(200).json(res.newUser)
 );
 
-
+// Creating user
+router.post('/create', databaseController.createUser);
 
 // Deleting one user
-router.delete('/:id', 
-  findUserById,
-  databaseController.deleteUser,
-  (req, res) => res.status(200).json({ message: 'Deleted user' })
-  )
-
-// AUTHENTICATE USER * STRETCH * NOT 100% WORKING
-
-router.post('/login', databaseController.authenticateUser, (req, res) =>
-  res.status(200).json(message)
+//not used in production version
+router.delete('/:id', findUserById, databaseController.deleteUser, (req, res) =>
+  res.status(200).json({ message: 'Deleted user' })
 );
 
+//authenticates user on local db
+router.post('/login', databaseController.authenticateUser);
 
 // Get user middleware
+//not used in production version
 async function findUserById(req, res, next) {
-
-  let user
+  let user;
   try {
-    user = await User.findById(req.params.id)
+    user = await User.findById(req.params.id);
     if (user === null) {
-      return res.status(404).json({ message: 'This user does not exist'})
+      return res.status(404).json({ message: 'This user does not exist' });
     }
   } catch (err) {
-    return res.status(500).json({ message: 'This user does not exist' })
+    return res.status(500).json({ message: 'This user does not exist' });
   }
-  res.user = user
+  res.user = user;
   next();
 }
 
-module.exports = router
-
+module.exports = router;

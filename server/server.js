@@ -2,41 +2,37 @@ const path = require('path');
 const express = require('express');
 const usersRouter = require('./routers/users')
 const googleOauth = require('./routers/googleOauth');
+const recipeController = require('./controllers/recipeController')
+// const Model = require('./models/userModel.js');
 const app = express();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
 const PORT = 3000;
 const googleController = require('./controllers/googleController')
 
-mongoose.connect('mongodb://localhost/users');
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Database'));
+// mongoose.connect('mongodb://localhost/users');
+// const db = mongoose.connection;
+// db.on('error', (error) => console.error(error));
+// db.once('open', () => console.log('Connected to Database'));
 
-
-// const apiRouter = require('./routes/api');
+const recipeRouter = require('./routers/recipes.js');
 
 //--m handle parsing request body
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.get('/', (req, res, next) =>
-//   res.sendFile(path.resolve(__dirname, '../index.html'))
-// );
-//define route handlers
-// app.use('/api', apiRouter);
-
-//handle requests for static files
-// app.use(express.static(path.resolve(__dirname, '../client')));
-
-// mongoose.connect('mongodb+srv://odonnelm1:<3mongooses>@cluster0.ywbh1.mongodb.net/recipeDB?retryWrites=true&w=majority'); //not 100% sure if this should be connected to database or API link
-// mongoose.connection.once('open', () => {
-//   console.log('Connected to Database');
-// });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//serves base index.html file that react app hangs off of
+app.get('/', (req, res) =>
+  res.sendFile(path.resolve(__dirname, '../index.html'))
+);
+app.get(
+  '/test', 
+  recipeController.getRecipe, 
+  (req,res)=>{
+    console.log('succesfully got the data')
+    res.send('yay')
+  }
+)
 
-
-// handle requests for static files
+//handles styles for our produced stylesheets and for the ReactGridLayout which has its own style sheets
 app.use(
   '/client/stylesheets',
   express.static(path.resolve(__dirname, '../client', 'stylesheets'))
@@ -45,7 +41,6 @@ app.use(
   '/node_modules',
   express.static(path.resolve(__dirname, '../node_modules'))
 );
-app.use('/users', usersRouter)
 
 app.use('/login', googleOauth);
 
@@ -64,12 +59,14 @@ app.use((req, res) =>
   res.status(404).send("This is not the recipe you're looking for...")
 );
 
+
 /**
  * express error handler
  * @see https://expressjs.com/en/guide/error-handling.html#writing-error-handlers
  */
 
 app.use((err, req, res, next) => {
+  console.log(err);
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 500,
@@ -81,18 +78,8 @@ app.use((err, req, res, next) => {
 });
 
 //start server
-
-// goes into router file
-// const recipeRouter = express.Router(); 
-// app.use('/recipe', recipeRouter); //connects to overall recipe app - named Recipe-Dev here for now
-
-// recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {
-//     if (res.locals.recipe) {return res.status(200).json({...res.locals.recipe});} 
-//     else {return res.status(400).send('Could not find recipe.');}
-//   });
-
 app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}...`);
+  console.log(`Server listening on port: ${PORT} :)`);
 });
 
 module.exports = app;

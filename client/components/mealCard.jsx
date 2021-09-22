@@ -1,17 +1,17 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 function MealCard(props) {
-  const [addedToCart, setAddedToCart] = React.useState(false);
-  const [side, setSide] = React.useState('ingredients');
-  const [isFaved, setIsFaved] = React.useState(props.isFaved);
-  const [rating, setRating] = React.useState(-4);
-  const starArr = [];
-  const ratingArr = [];
-  const dummyListListed = [];
-  const dummyDirectionsListed = [];
-  const dummyListModal = [];
+  const [addedToCart, setAddedToCart] = React.useState(false); //state that maintains functionality and appearance of addMissingIngredients button
+  const [side, setSide] = React.useState('ingredients'); //state that maintains which side of text-box is shown
+  const [isFaved, setIsFaved] = React.useState(props.isFaved); //state that maintains functionality and appearance of <3 button in top-left corner
+  const [rating, setRating] = React.useState(-4); //state that maintains the rating stars that appear at bottom of card (hardcoded to be -4 bc spoonacular api does not give ratings... but we thought it did, still the stars are functional and do change!)
+  const starArr = []; //holds star images
+  const ratingArr = []; //maintains which stars are yellow in the rating -> array of 5 bools -> [true, true, true, false, false] means a 3 star rating...etc...
+  const dummyListListed = []; //dummy data container
+  const dummyListModal = []; //dummy data for modal window that pops up when pressing miss ingredient button
+  //custom function to grab the checked items in popup window and turn that into an array
   const addModalItems = (event, array) => {
-    const form = event.target.previousElementSibling;
+    const form = event.target.previousElementSibling; //this is where the checkboxes live
     for (let i = 0; i < form.length; i++) {
       if (form[i].checked) {
         array.push(form[i].value);
@@ -20,12 +20,10 @@ function MealCard(props) {
     return array;
   };
   props.ingredients.forEach((el) => {
+    //creates a series of list elements for the dummydata for the textbox
     dummyListListed.push(<li>{el}</li>);
   });
-  props.directions.forEach((el) => {
-    dummyDirectionsListed.push(<li>{el}</li>);
-  });
-
+  //same as above but for the  popup window
   props.ingredients.forEach((el) => {
     dummyListModal.push(
       <>
@@ -41,6 +39,7 @@ function MealCard(props) {
       X
     </button>
   );
+  //controls how stars are rendered based on rating state
   for (let i = 0; i < 5; i++) {
     if (i < Math.abs(rating)) {
       ratingArr.push(true);
@@ -48,9 +47,10 @@ function MealCard(props) {
       ratingArr.push(false);
     }
   }
+  //this statement determines whether the missingIngredientbutton should be green/red and clickable/unclickable
   let missIngredientButton;
   if (addedToCart) {
-    missIngredientButton = (
+    missIngredientButton = ( //className below controls color of button
       <button className='button addToCartButtonTrue'>
         Added to your list!
       </button>
@@ -60,14 +60,18 @@ function MealCard(props) {
     missIngredientButton = (
       <Popup
         trigger={
+          //button that causes popup to appear
+          //className below controls color of button
           <button className='button addToCartButtonFalse'>
             Add Missing Ingredients to Shopping List
           </button>
         }
-        modal
+        modal //syntax for popup describing type
         nested
       >
-        {(close) => (
+        {(
+          close //functionality to close popup window
+        ) => (
           <div className='modalPopupWindow'>
             <button className='close' onClick={close}>
               &times;
@@ -78,10 +82,8 @@ function MealCard(props) {
               <button
                 className='button'
                 onClick={(event) => {
-                  // console.log(event.target.previousSibling[0].checked);s
-                  console.log('modal closed ');
-                  setAddedToCart(true);
-                  const newCartItems = [...props.cartItems];
+                  setAddedToCart(true); //sets state of button to be 'clicked'
+                  const newCartItems = [...props.cartItems]; //clones state, grabs checked items, then sets states
                   addModalItems(event, newCartItems);
                   props.setCartItems(newCartItems);
                   close();
@@ -99,10 +101,10 @@ function MealCard(props) {
     starArr.push(
       <input
         type='image'
-        onClick={(event) =>
-          setRating(Number(event.target.className.slice(10, 11)))
+        onClick={
+          (event) => setRating(Number(event.target.className.slice(10, 11))) //grabs the number of the star and sets that to be the new star
         }
-        className={'ratingStar' + i.toString() + ratingArr[i - 1].toString()}
+        className={'ratingStar' + i.toString() + ratingArr[i - 1].toString()} //how css properties are applied to be either yellow or transparent background -> ratingStar1true, ratingStar2false, ratingStar3false... would be a 1 star rating
         key={'ratingStar' + i.toString()}
         src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/1200px-Five-pointed_star.svg.png'
       />
@@ -112,11 +114,12 @@ function MealCard(props) {
   let buttonArr = [];
 
   if (side === 'ingredients') {
+    //controls which side is rendered and what the buttons are colored
     list = <ul>{dummyListListed}</ul>;
     buttonArr.push(
       <div>
         <button
-          className='ingredientButton isActive'
+          className='ingredientButton isActive' //isActive makes the button turn green
           onClick={() => setSide('ingredients')}
         >
           Ingredients
@@ -130,7 +133,7 @@ function MealCard(props) {
       </div>
     );
   } else if (side === 'directions') {
-    list = <ol>{dummyDirectionsListed}</ol>;
+    list = <p>{props.directions}</p>;
     buttonArr.push(
       <div>
         <button
@@ -150,9 +153,10 @@ function MealCard(props) {
   }
   let favButton;
   if (isFaved) {
+    //controls what faveButton looks like
     favButton = (
       <button
-        className='trueFavoriteButton'
+        className='trueFavoriteButton' //this will make the favbutton be yellow
         onClick={(event) => {
           props.removeFav(event);
           setIsFaved(!isFaved);
@@ -164,7 +168,7 @@ function MealCard(props) {
   } else if (!isFaved) {
     favButton = (
       <button
-        className='falseFavoriteButton'
+        className='falseFavoriteButton' //this will make the favbutton be off-light-green
         onClick={(event) => {
           props.setFav(event);
           setIsFaved(!isFaved);
@@ -183,7 +187,7 @@ function MealCard(props) {
         {closeButton}
       </div>
       <div className='imgHolder'>
-        <img src='https://i.imgur.com/mSVtgYm.jpg' />
+        <img src={props.img} />
       </div>
 
       <div className='buttonHolder'>{buttonArr}</div>
