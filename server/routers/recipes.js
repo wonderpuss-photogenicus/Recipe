@@ -27,7 +27,8 @@ module.exports = router;
 //     else {return res.status(400).send('Could not find recipe.');}
 //   });
 
-// const titleArr = [];
+// recipeRouter.post('/find', (req, res) => {
+//   const titleArr = [];
 //   const idArr = [];
 //   const imageArr = [];
 
@@ -63,7 +64,6 @@ module.exports = router;
 //             return el.data.ingredients;
 //           } else return [];
 //         });
-        
 //         newDirectionResults = directionResults.map((el) => {
 //           if (el) {
 //             return el.data.summary;
@@ -85,6 +85,7 @@ module.exports = router;
 //   } else {
 //     return res.status(400).send('Could not find recipe.');
 //   }
+// });
 
 //example fetch request that returns JSON string with valid API key:
 //https://api.spoonacular.com/recipes/716429/information?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a&includeNutrition=true

@@ -6,7 +6,7 @@ const googleScopes = ['https://www.googleapis.com/auth/userinfo.email', 'https:/
 const reDirectUrl = 'http://localhost:3000/login';
 const { google } = require('googleapis');
 
-const { User } = require('../models/Models');
+const User = require('../models/Models');
 // const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
@@ -91,11 +91,13 @@ googleController.verifyUser = async (req, res, next) => {
         console.log('inside verifyUser user  is  ', user);
         if(user) {
             res.locals.user = user;
+            // res.redirect('http://localhost:8080');
             return next();
         }else{
             // if user isnt found in database
             const newUser = await User.create({password: password})
             res.locals.user = newUser;
+            // res.redirect('http://localhost:8080');
             return next();
         }
     }catch(error){

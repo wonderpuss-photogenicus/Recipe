@@ -52,8 +52,7 @@ app.use('/login', googleOauth);
 app.get('/login', googleController.login, googleController.getCode, googleController.retrieveToken, googleController.verifyUser, (req, res, err) =>{
   // console.log('req body: ', req);
   console.log('inside googleOauth .get/')
-  console.log('res.locals.user is ', res.locals.user);
-  return res.status(200).json({body:'hello'})
+  return res.status(200).send('Send to their page');
 });
 
 //define route handlers
@@ -63,7 +62,6 @@ app.get('/login', googleController.login, googleController.getCode, googleContro
 app.use((req, res) =>
   res.status(404).send("This is not the recipe you're looking for...")
 );
-
 
 /**
  * express error handler

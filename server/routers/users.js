@@ -10,14 +10,14 @@ router.get('/', databaseController.getAllUsers, (req, res) =>
   res.status(200).json(res.locals.users)
 );
 
-// // Getting one user
+// // // Getting one user
 router.get('/:id',
   findUserById,
   databaseController.getUser,
   (req, res) => res.status(200).json(res.user)
 )
 
-// // Creating user
+// // // Creating user
 
 router.post('/create', databaseController.createUser, (req, res) =>
   res.status(200).json(res.newUser)
