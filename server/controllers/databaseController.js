@@ -3,6 +3,23 @@ const bcrypt = require("bcryptjs");
 
 const databaseController = {};
 
+// Get user middleware
+//not used in production version
+// async function findUserById(req, res, next) {
+//   let user;
+//   try {
+//     user = await User.findById(req.params.id);
+//     if (user === null) {
+//       return res.status(404).json({ message: "This user does not exist" });
+//     }
+//   } catch (err) {
+//     return res.status(500).json({ message: "This user does not exist" });
+//   }
+//   res.user = user;
+//   next();
+// }
+
+
 // Route for getting all users
 // databaseController.getAllUsers = async (req, res, next) => {
 //   try {
