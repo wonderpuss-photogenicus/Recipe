@@ -21,6 +21,12 @@ const initialState = {
 };
 
 const App = () => {
+  axios.get('/session').then((response) => {
+    if (response.data === 'Send to their page') {
+      //this is the expected response from backend upon successful login
+      setIsLoggedIn(true);
+    }});
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   //state determines whether or not each parent component is rendered (fav/mealDisplay)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [masterRendererArray, setMasterRendererArray] = useState([true, true]);

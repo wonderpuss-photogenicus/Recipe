@@ -22,15 +22,16 @@ const databaseController = {};
 // // Creating user
 // // uses bcypt to create a new password for new user and saves in local mongoDB
 databaseController.createUser = async (req, res, next) => {
+  console.log('inside of createUser databaseController')
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
       username: req.body.username,
       password: hashedPassword,
     });
-    const newUser = await user.save();
-    res.send("Send to their page");
-    next(); //frontend expects this message to validate user has been created
+    console.log('user is, ', user)
+    const newUser = user.save();
+    return next(); //frontend expects this message to validate user has been created
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -49,7 +50,8 @@ databaseController.createUser = async (req, res, next) => {
 //verifies user info is correct before rendering app
 databaseController.authenticateUser = async (req, res, next) => {
   //console.log(req.body);
-  const user = await User.findOne({ username: req.body.username });
+  console.log('inside of databaseController : ', req.body);
+  const user = await User.findOne({ username: req.body.username }).exec();
   //console.log(user);
   if (user == null) {
     return res.status(400).send("Cannot find user");
