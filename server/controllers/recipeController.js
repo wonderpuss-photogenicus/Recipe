@@ -45,86 +45,6 @@ recipeController.getRecipe = (req, res, next) => {
 };
 
 
-// //used for getting all recipes from API into our database for ease access
-// recipeController.getAllRecipesToDB = (req, res, next) => {
-//   //iterate through all API request by alpahabets and store it inside an array
-//   const alphabetString = 'abcdefghijklmnopqrstuvwxyz';
-//   const array = [];
-//     for (let i = 0; i < alphabetString.length; i++) {
-//       array.push(axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${alphabetString[i]}`));
-//     }
-//   //resolve all promises in an array
-//   Promise.all(array)
-//   .then(results => {
-//     // console.log(results[0].data)
-//     const mealArr = [];
-//     //iterate through each responses, and filter data the format that we want, and store it inside the meal Arr;
-//     for(let i = 0; i < results.length; i++) {
-//       const { meals } = results[i].data;
-//       // meals = array [ {recipe1} , {recipe2} , {recipe3}]
-//       // `strIngredient${i}` : `strMeasure${i}`  20 items total
-//       if(meals != null){
-//         meals.forEach(meal=>{
-//           const temp1 = [];
-//           const temp2 = [];
-//           for(let j = 1; j <= 20; j++){
-//             const ingredient = meal[`strIngredient${j}`];
-//             const measure = meal[`strMeasure${j}`];
-//             if(ingredient) {
-//               temp1.push(ingredient.toLowerCase());
-//               temp2.push(measure.toLowerCase());
-//             }
-//           };
-//           const { idMeal, strMeal, strArea, strInstructions, strMealThumb } = meal;
-//           const body = 
-//                 {
-//                   id: idMeal, 
-//                   name: strMeal, 
-//                   cuisine: strArea,
-//                   instruction: strInstructions,
-//                   imgURL: strMealThumb,
-//                   ingredients: temp1,
-//                   measures: temp2
-//                 };
-//           // fs.appendFileSync(path.join(__dirname, 'test.json'), `${JSON.stringify(body)};`)
-//           mealArr.push(body);
-//         })
-//       }
-//     }
-//     //save it inside the locals and move to the next .then chain
-//     res.locals.mealArr = mealArr;
-//   })
-//   .then(()=>{
-//     //for creating INGREDIENTS COLLECTION
-//     const mealArr = res.locals.mealArr
-//     const temp = new Set()
-
-//     for (let i = 0; i < mealArr.length; i++) {
-//       mealArr[i].ingredients.forEach(ingredient => {
-//         temp.add(ingredient);
-//       });
-//     };
-
-//     const result = [];
-//     for(let ingredient of temp) {
-//       const ingObj = { name: ingredient };
-//       result.push(ingObj);
-//     }
-
-//     Ingredients.create(result)
-//     .then(result => next())
-//     .catch(err => console.log(err));
-
-//     //for creating RECIPE COLLECTION using the mealArr as a query to create/add multiple items into our recipe collection;
-//     // Recipe.create(res.locals.mealArr)
-//     // .then((result)=>next())
-//     // .catch(err=>console.log(err))
-//   })
-//   .catch(err => next(err));
-// };
-
-
-
 
 
 module.exports = recipeController;
@@ -203,3 +123,82 @@ module.exports = recipeController;
 //         }
 //       )
 //   }
+
+
+// //used for getting all recipes from API into our database for ease access
+// recipeController.getAllRecipesToDB = (req, res, next) => {
+//   //iterate through all API request by alpahabets and store it inside an array
+//   const alphabetString = 'abcdefghijklmnopqrstuvwxyz';
+//   const array = [];
+//     for (let i = 0; i < alphabetString.length; i++) {
+//       array.push(axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${alphabetString[i]}`));
+//     }
+//   //resolve all promises in an array
+//   Promise.all(array)
+//   .then(results => {
+//     // console.log(results[0].data)
+//     const mealArr = [];
+//     //iterate through each responses, and filter data the format that we want, and store it inside the meal Arr;
+//     for(let i = 0; i < results.length; i++) {
+//       const { meals } = results[i].data;
+//       // meals = array [ {recipe1} , {recipe2} , {recipe3}]
+//       // `strIngredient${i}` : `strMeasure${i}`  20 items total
+//       if(meals != null){
+//         meals.forEach(meal=>{
+//           const temp1 = [];
+//           const temp2 = [];
+//           for(let j = 1; j <= 20; j++){
+//             const ingredient = meal[`strIngredient${j}`];
+//             const measure = meal[`strMeasure${j}`];
+//             if(ingredient) {
+//               temp1.push(ingredient.toLowerCase());
+//               temp2.push(measure.toLowerCase());
+//             }
+//           };
+//           const { idMeal, strMeal, strArea, strInstructions, strMealThumb } = meal;
+//           const body = 
+//                 {
+//                   id: idMeal, 
+//                   name: strMeal, 
+//                   cuisine: strArea,
+//                   instruction: strInstructions,
+//                   imgURL: strMealThumb,
+//                   ingredients: temp1,
+//                   measures: temp2
+//                 };
+//           // fs.appendFileSync(path.join(__dirname, 'test.json'), `${JSON.stringify(body)};`)
+//           mealArr.push(body);
+//         })
+//       }
+//     }
+//     //save it inside the locals and move to the next .then chain
+//     res.locals.mealArr = mealArr;
+//   })
+//   .then(()=>{
+//     //for creating INGREDIENTS COLLECTION
+//     const mealArr = res.locals.mealArr
+//     const temp = new Set()
+
+//     for (let i = 0; i < mealArr.length; i++) {
+//       mealArr[i].ingredients.forEach(ingredient => {
+//         temp.add(ingredient);
+//       });
+//     };
+
+//     const result = [];
+//     for(let ingredient of temp) {
+//       const ingObj = { name: ingredient };
+//       result.push(ingObj);
+//     }
+
+//     Ingredients.create(result)
+//     .then(result => next())
+//     .catch(err => console.log(err));
+
+//     //for creating RECIPE COLLECTION using the mealArr as a query to create/add multiple items into our recipe collection;
+//     // Recipe.create(res.locals.mealArr)
+//     // .then((result)=>next())
+//     // .catch(err=>console.log(err))
+//   })
+//   .catch(err => next(err));
+// };

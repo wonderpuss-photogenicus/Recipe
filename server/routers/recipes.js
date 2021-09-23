@@ -11,6 +11,16 @@ recipeRouter.get("/find", recipeController.getRecipe, (req, res) => {
 module.exports = recipeRouter;
 // previous stuff
 
+//used to save all data from API into the database
+// app.get(
+//   '/test',
+//   recipeController.getAllRecipesToDB,
+//   (req,res)=>{
+//     console.log('succesfully got the data')
+//     res.send('yay')
+//   }
+// )
+
 // recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {
 //     if (res.params.recipe) {
 //         fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a&cuisine=${req.body.cuisine}&includeIngredients=${req.body.ingredients}`)

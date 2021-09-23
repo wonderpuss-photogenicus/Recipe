@@ -21,9 +21,6 @@ app.use(session({
     cookie: { maxAge: oneDay },
     resave: false 
 }));
-// app.get('/:code', googleController.accessQueryString, (req, res, err) => {
-//   console.log('inside get code router');
-// });
 
 //serves base index.html file that react app hangs off of
 app.get("/", (req, res) =>{
@@ -66,16 +63,6 @@ app.post("/api/v1/auth/google", async (req, res) => {
 
 app.use("/users", usersRouter);
 app.use('/recipes', recipeRouter);
-
-//used to save all data from API into the database
-// app.get(
-//   '/test',
-//   recipeController.getAllRecipesToDB,
-//   (req,res)=>{
-//     console.log('succesfully got the data')
-//     res.send('yay')
-//   }
-// )
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) =>
