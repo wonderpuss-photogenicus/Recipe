@@ -10,6 +10,9 @@ recipeController.getRecipe = (req, res, next) => {
     ingredients: {$all: req.body.ingredients}
     })
     .then( recipes => {
+      if(!recipes.length) {
+        res.status(404).send('no data found');
+      }
       const array = []
       // recipes = > [{ id: name: cuisne: instructions: imgURL: igredients: [] measures: []}, ]
       for(let i = 0; i < recipes.length; i++) {

@@ -99,4 +99,3 @@ module.exports = recipeRouter;
 // {id, summary, title}
 // {ingredients: [{name,image,amount:{metric:{value, unit}, us:{value, unit},}}]}
 
-module.exports = router;
