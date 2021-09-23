@@ -9,8 +9,6 @@ const client = new OAuth2Client('286216419697-fiuupsg66161d7aqejg16h3qv088mn5j.a
 const { User } = require("./models/Models");
 // const Model = require('./models/userModel.js');
 const app = express();
-
-// const mongoose = require('mongoose'); dont need because we are using cloud database and setting it up inside the userModel
 const PORT = 3000;
 
 //--m handle parsing request body
@@ -67,6 +65,7 @@ app.post("/api/v1/auth/google", async (req, res) => {
 
 
 app.use("/users", usersRouter);
+app.use('/recipes', recipeRouter);
 
 //used to save all data from API into the database
 // app.get(
