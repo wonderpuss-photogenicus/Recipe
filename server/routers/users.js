@@ -3,6 +3,10 @@ const routerUsers = express.Router();
 const databaseController = require("../controllers/databaseController");
 const googleController = require("../controllers/googleController");
 
+const { OAuth2Client } = require('google-auth-library');
+const { User } = require("../models/Models");
+const client = new OAuth2Client(process.env.CLIENT_ID)
+
 // // Getting one user
 // router.get("/:id", findUserById, databaseController.getUser, (req, res) =>
 //   res.status(200).json(res.user)
@@ -25,25 +29,38 @@ const googleController = require("../controllers/googleController");
 // }
 
 // // Creating user
-routerUsers.post("/create", databaseController.createUser, (req, res) =>
-  res.status(200).json(res.newUser)
-);
+
+
+routerUsers.post("/create", databaseController.createUser, (req, res) =>{
+  console.log('inside of create router')
+  // res.status(200).json(res.newUser)
+  return res.status(200).send("Send to their page")
+});
 
 //authenticates user on local db
 routerUsers.post("/login", databaseController.authenticateUser);
 
-routerUsers.get(
-  "/Oauth",
-  googleController.login,
-  googleController.getCode,
-  googleController.retrieveToken,
-  googleController.verifyUser,
-  (req, res, err) => {
-    // console.log('req body: ', req);
-    console.log("inside googleOauth .get/");
-    console.log("res.locals.user is ", res.locals.user);
-    return res.status(200).json({ body: "hello" });
-  }
-);
+// routerUsers.get('/', googleController.login); 
+
+
+
+// routerUsers.get(
+//   "/Oauth",
+//   googleController.login,
+//   googleController.getCode,
+//   googleController.retrieveToken,
+//   googleController.verifyUser,
+//   (req, res, err) => {
+//     // console.log('req body: ', req);
+//     console.log("inside googleOauth router");
+//     // console.log("res.locals.user is ", res.locals.user);
+//     return res.status(200).send('Send to their page');
+//   }
+// );
+
+
+
+
+// googleController.accessQueryString,
 
 module.exports = routerUsers;

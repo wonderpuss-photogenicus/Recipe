@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-const express = require("express");
-const recipeController = require("../controllers/recipeController.js");
-
-const recipeRouter = express.Router();
-=======
 const express = require('express');
 const recipeController = require('../controllers/recipeController.js');
 const axios = require('axios');
@@ -18,7 +12,6 @@ router.get('/find', recipeController.getRecipe, (req, res) => {
 module.exports = router;
 
 // previous stuff
->>>>>>> dev
 
 // recipeRouter.get('/:recipe', recipeController.getRecipe, (req, res) => {
 //     if (res.params.recipe) {
@@ -34,9 +27,6 @@ module.exports = router;
 //     else {return res.status(400).send('Could not find recipe.');}
 //   });
 
-<<<<<<< HEAD
-module.exports = recipeRouter;
-=======
 // recipeRouter.post('/find', (req, res) => {
 //   const titleArr = [];
 //   const idArr = [];
@@ -110,4 +100,3 @@ module.exports = recipeRouter;
 //GET https://api.spoonacular.com/recipes/{id}/summary?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a
 // {id, summary, title}
 // {ingredients: [{name,image,amount:{metric:{value, unit}, us:{value, unit},}}]}
->>>>>>> dev
