@@ -98,4 +98,3 @@ module.exports = recipeRouter;
 //GET https://api.spoonacular.com/recipes/{id}/summary?apiKey=6e3f2dca30e44d3fbd48a3fee49ed05a
 // {id, summary, title}
 // {ingredients: [{name,image,amount:{metric:{value, unit}, us:{value, unit},}}]}
-
