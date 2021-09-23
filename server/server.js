@@ -24,7 +24,7 @@ app.use(session({
 
 //serves base index.html file that react app hangs off of
 app.get("/", (req, res) =>{
-  res.sendFile(path.resolve(__dirname, "../index.html"))});
+  res.status(200).sendFile(path.resolve(__dirname, "../index.html"))});
 
 app.get("/session",googleController.session,  (req, res) =>{
   console.log('inside googleSession', res.locals.user);

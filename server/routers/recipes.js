@@ -5,7 +5,7 @@ const recipeRouter = express.Router();
 
 recipeRouter.get("/find", recipeController.getRecipe, (req, res) => {
   console.log("filtered recipes");
-  res.json(res.locals.recipes);
+  res.status(200).json(res.locals.recipes);
 });
 
 module.exports = recipeRouter;

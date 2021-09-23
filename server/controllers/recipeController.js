@@ -5,10 +5,8 @@ const axios = require('axios');
 const recipeController = {};
 
 recipeController.getRecipe = (req, res, next) => {
-  Recipe.find({
-    cuisine: req.body.cuisine,
-    ingredients: {$all: req.body.ingredients}
-    })
+  // Recipe.find({cuisine: req.body.cuisine})
+  Recipe.find({cuisine: req.body.cuisine, ingredients: {$all: req.body.ingredients}})
     .then( recipes => {
       if(!recipes.length) {
         res.status(404).send('no data found');
